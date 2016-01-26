@@ -21,21 +21,21 @@ function generate(){
 }
 
 function init(){
-	@mkdir("generated");
-	@mkdir("generated/class");
-	@mkdir("generated/class/dto");
-	@mkdir("generated/class/mysql");
-	@mkdir("generated/class/mysql/ext");
-	@mkdir("generated/class/sql");
-	@mkdir("generated/class/dao");
-	@mkdir("generated/class/core");
-	copy('templates/class/dao/sql/Connection.class.php', 'generated/class/sql/Connection.class.php');
-	copy('templates/class/dao/sql/ConnectionFactory.class.php', 'generated/class/sql/ConnectionFactory.class.php');
-	copy('templates/class/dao/sql/ConnectionProperty.class.php', 'generated/class/sql/ConnectionProperty.class.php');
-	copy('templates/class/dao/sql/QueryExecutor.class.php', 'generated/class/sql/QueryExecutor.class.php');
-	copy('templates/class/dao/sql/Transaction.class.php', 'generated/class/sql/Transaction.class.php');
-	copy('templates/class/dao/sql/SqlQuery.class.php', 'generated/class/sql/SqlQuery.class.php');
-	copy('templates/class/dao/core/ArrayList.class.php', 'generated/class/core/ArrayList.class.php');
+	@mkdir("modelo");
+	@mkdir("modelo/class");
+	@mkdir("modelo/class/dto");
+	@mkdir("modelo/class/mysql");
+	@mkdir("modelo/class/mysql/ext");
+	@mkdir("modelo/class/sql");
+	@mkdir("modelo/class/dao");
+	@mkdir("modelo/class/core");
+	copy('templates/class/dao/sql/Connection.class.php', 'modelo/class/sql/Connection.class.php');
+	copy('templates/class/dao/sql/ConnectionFactory.class.php', 'modelo/class/sql/ConnectionFactory.class.php');
+	copy('templates/class/dao/sql/ConnectionProperty.class.php', 'modelo/class/sql/ConnectionProperty.class.php');
+	copy('templates/class/dao/sql/QueryExecutor.class.php', 'modelo/class/sql/QueryExecutor.class.php');
+	copy('templates/class/dao/sql/Transaction.class.php', 'modelo/class/sql/Transaction.class.php');
+	copy('templates/class/dao/sql/SqlQuery.class.php', 'modelo/class/sql/SqlQuery.class.php');
+	copy('templates/class/dao/core/ArrayList.class.php', 'modelo/class/core/ArrayList.class.php');
 }
 
 function createIncludeFile($ret){
@@ -53,7 +53,7 @@ function createIncludeFile($ret){
 	}
 	$template = new Template('templates/include_dao.tpl');
 	$template->set('include', $str);
-	$template->write('generated/include_dao.php');
+	$template->write('modelo/include_dao.php');
 }
 
 function doesTableContainPK($row){
@@ -83,7 +83,7 @@ function createDAOFactory($ret){
 	}
 	$template = new Template('templates/DAOFactory.tpl');
 	$template->set('content', $str);
-	$template->write('generated/class/dao/DAOFactory.class.php');
+	$template->write('modelo/class/dao/DAOFactory.class.php');
 }
 
 /**
@@ -112,7 +112,7 @@ function getnerateDomainObjects($ret){
 		}
 		$template->set('variables', $fields);
 		$template->set('date', date("Y-m-d H:i"));
-		$template->write('generated/class/dto/'.$clazzName.'.class.php');
+		$template->write('modelo/class/dto/'.$clazzName.'.class.php');
 	}
 }
 
@@ -188,9 +188,9 @@ function getnerateDAOExtObjects($ret){
 		$template->set('date', date("Y-m-d H:i"));
 		$template->set('queryByFieldFunctions',$queryByField);		
 		$template->set('deleteByFieldFunctions',$deleteByField);	
-		$file = 'generated/class/mysql/ext/'.$clazzName.'DAO.class.php';
+		$file = 'modelo/class/mysql/ext/'.$clazzName.'DAO.class.php';
 		if(!file_exists($file)){
-			$template->write('generated/class/mysql/ext/'.$clazzName.'DAO.class.php');
+			$template->write('modelo/class/mysql/ext/'.$clazzName.'DAO.class.php');
 		}
 	}
 }
@@ -314,7 +314,7 @@ function getnerateDAOObjects($ret){
 		$template->set('date', date("Y-m-d H:i"));
 		$template->set('queryByFieldFunctions',$queryByField);		
 		$template->set('deleteByFieldFunctions',$deleteByField);	
-		$template->write('generated/class/mysql/'.$clazzName.'DAO.class.php');
+		$template->write('modelo/class/mysql/'.$clazzName.'DAO.class.php');
 	}
 }
 
@@ -418,7 +418,7 @@ function getnerateIDAOObjects($ret){
 		$template->set('date', date("Y-m-d H:i"));
 		$template->set('queryByFieldFunctions',$queryByField);
 		$template->set('deleteByFieldFunctions',$deleteByField);		
-		$template->write('generated/class/dao/'.$clazzName.'DAO.class.php');
+		$template->write('modelo/class/dao/'.$clazzName.'DAO.class.php');
 	}
 }
 
