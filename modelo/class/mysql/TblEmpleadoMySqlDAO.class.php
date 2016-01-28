@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_empleado'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblEmpleadoMySqlDAO implements TblEmpleadoDAO{
 
@@ -58,19 +58,66 @@ class TblEmpleadoMySqlDAO implements TblEmpleadoDAO{
  	 */
 	public function insert($tblEmpleado){
 		$sql = 'INSERT INTO tbl_empleado (dui, nit, isss, afp, nombre, apellido, sexo, cuenta, fecha_nacimiento, salario, id_puesto_trabajo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->dui)) || is_null($tblEmpleado->dui))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->nit)) || is_null($tblEmpleado->nit))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->isss)) || is_null($tblEmpleado->isss))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->afp)) || is_null($tblEmpleado->afp))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->nombre)) || is_null($tblEmpleado->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->apellido)) || is_null($tblEmpleado->apellido))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->sexo)) || is_null($tblEmpleado->sexo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->cuenta)) || is_null($tblEmpleado->cuenta))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->fechaNacimiento)) || is_null($tblEmpleado->fechaNacimiento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->salario)) || is_null($tblEmpleado->salario))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->idPuestoTrabajo)) || is_null($tblEmpleado->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEmpleado->dui);
-		$sqlQuery->set($tblEmpleado->nit);
-		$sqlQuery->set($tblEmpleado->isss);
-		$sqlQuery->set($tblEmpleado->afp);
-		$sqlQuery->set($tblEmpleado->nombre);
-		$sqlQuery->set($tblEmpleado->apellido);
-		$sqlQuery->set($tblEmpleado->sexo);
-		$sqlQuery->set($tblEmpleado->cuenta);
-		$sqlQuery->set($tblEmpleado->fechaNacimiento);
-		$sqlQuery->set($tblEmpleado->salario);
-		$sqlQuery->setNumber($tblEmpleado->idPuestoTrabajo);
+		if ((isset($tblEmpleado->dui)) && (!is_null($tblEmpleado->dui)))
+			$sqlQuery->set($tblEmpleado->dui);
+		if ((isset($tblEmpleado->nit)) && (!is_null($tblEmpleado->nit)))
+			$sqlQuery->set($tblEmpleado->nit);
+		if ((isset($tblEmpleado->isss)) && (!is_null($tblEmpleado->isss)))
+			$sqlQuery->set($tblEmpleado->isss);
+		if ((isset($tblEmpleado->afp)) && (!is_null($tblEmpleado->afp)))
+			$sqlQuery->set($tblEmpleado->afp);
+		if ((isset($tblEmpleado->nombre)) && (!is_null($tblEmpleado->nombre)))
+			$sqlQuery->set($tblEmpleado->nombre);
+		if ((isset($tblEmpleado->apellido)) && (!is_null($tblEmpleado->apellido)))
+			$sqlQuery->set($tblEmpleado->apellido);
+		if ((isset($tblEmpleado->sexo)) && (!is_null($tblEmpleado->sexo)))
+			$sqlQuery->set($tblEmpleado->sexo);
+		if ((isset($tblEmpleado->cuenta)) && (!is_null($tblEmpleado->cuenta)))
+			$sqlQuery->set($tblEmpleado->cuenta);
+		if ((isset($tblEmpleado->fechaNacimiento)) && (!is_null($tblEmpleado->fechaNacimiento)))
+			$sqlQuery->set($tblEmpleado->fechaNacimiento);
+		if ((isset($tblEmpleado->salario)) && (!is_null($tblEmpleado->salario)))
+			$sqlQuery->set($tblEmpleado->salario);
+		if ((isset($tblEmpleado->idPuestoTrabajo)) && (!is_null($tblEmpleado->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblEmpleado->idPuestoTrabajo);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblEmpleado->idEmpleado = $id;
@@ -84,19 +131,66 @@ class TblEmpleadoMySqlDAO implements TblEmpleadoDAO{
  	 */
 	public function update($tblEmpleado){
 		$sql = 'UPDATE tbl_empleado SET dui = ?, nit = ?, isss = ?, afp = ?, nombre = ?, apellido = ?, sexo = ?, cuenta = ?, fecha_nacimiento = ?, salario = ?, id_puesto_trabajo = ? WHERE id_empleado = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->dui)) || is_null($tblEmpleado->dui))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->nit)) || is_null($tblEmpleado->nit))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->isss)) || is_null($tblEmpleado->isss))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->afp)) || is_null($tblEmpleado->afp))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->nombre)) || is_null($tblEmpleado->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->apellido)) || is_null($tblEmpleado->apellido))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->sexo)) || is_null($tblEmpleado->sexo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->cuenta)) || is_null($tblEmpleado->cuenta))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->fechaNacimiento)) || is_null($tblEmpleado->fechaNacimiento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->salario)) || is_null($tblEmpleado->salario))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEmpleado->idPuestoTrabajo)) || is_null($tblEmpleado->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEmpleado->dui);
-		$sqlQuery->set($tblEmpleado->nit);
-		$sqlQuery->set($tblEmpleado->isss);
-		$sqlQuery->set($tblEmpleado->afp);
-		$sqlQuery->set($tblEmpleado->nombre);
-		$sqlQuery->set($tblEmpleado->apellido);
-		$sqlQuery->set($tblEmpleado->sexo);
-		$sqlQuery->set($tblEmpleado->cuenta);
-		$sqlQuery->set($tblEmpleado->fechaNacimiento);
-		$sqlQuery->set($tblEmpleado->salario);
-		$sqlQuery->setNumber($tblEmpleado->idPuestoTrabajo);
+		if ((isset($tblEmpleado->dui)) && (!is_null($tblEmpleado->dui)))
+			$sqlQuery->set($tblEmpleado->dui);
+		if ((isset($tblEmpleado->nit)) && (!is_null($tblEmpleado->nit)))
+			$sqlQuery->set($tblEmpleado->nit);
+		if ((isset($tblEmpleado->isss)) && (!is_null($tblEmpleado->isss)))
+			$sqlQuery->set($tblEmpleado->isss);
+		if ((isset($tblEmpleado->afp)) && (!is_null($tblEmpleado->afp)))
+			$sqlQuery->set($tblEmpleado->afp);
+		if ((isset($tblEmpleado->nombre)) && (!is_null($tblEmpleado->nombre)))
+			$sqlQuery->set($tblEmpleado->nombre);
+		if ((isset($tblEmpleado->apellido)) && (!is_null($tblEmpleado->apellido)))
+			$sqlQuery->set($tblEmpleado->apellido);
+		if ((isset($tblEmpleado->sexo)) && (!is_null($tblEmpleado->sexo)))
+			$sqlQuery->set($tblEmpleado->sexo);
+		if ((isset($tblEmpleado->cuenta)) && (!is_null($tblEmpleado->cuenta)))
+			$sqlQuery->set($tblEmpleado->cuenta);
+		if ((isset($tblEmpleado->fechaNacimiento)) && (!is_null($tblEmpleado->fechaNacimiento)))
+			$sqlQuery->set($tblEmpleado->fechaNacimiento);
+		if ((isset($tblEmpleado->salario)) && (!is_null($tblEmpleado->salario)))
+			$sqlQuery->set($tblEmpleado->salario);
+		if ((isset($tblEmpleado->idPuestoTrabajo)) && (!is_null($tblEmpleado->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblEmpleado->idPuestoTrabajo);
 
 		$sqlQuery->setNumber($tblEmpleado->idEmpleado);
 		return $this->executeUpdate($sqlQuery);

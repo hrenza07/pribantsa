@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_bono'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblBonoMySqlDAO implements TblBonoDAO{
 
@@ -58,11 +58,26 @@ class TblBonoMySqlDAO implements TblBonoDAO{
  	 */
 	public function insert($tblBono){
 		$sql = 'INSERT INTO tbl_bono (fecha, id_tipo_bono, id_empleado) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->fecha)) || is_null($tblBono->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->idTipoBono)) || is_null($tblBono->idTipoBono))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->idEmpleado)) || is_null($tblBono->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblBono->fecha);
-		$sqlQuery->setNumber($tblBono->idTipoBono);
-		$sqlQuery->setNumber($tblBono->idEmpleado);
+		if ((isset($tblBono->fecha)) && (!is_null($tblBono->fecha)))
+			$sqlQuery->set($tblBono->fecha);
+		if ((isset($tblBono->idTipoBono)) && (!is_null($tblBono->idTipoBono)))
+			$sqlQuery->setNumber($tblBono->idTipoBono);
+		if ((isset($tblBono->idEmpleado)) && (!is_null($tblBono->idEmpleado)))
+			$sqlQuery->setNumber($tblBono->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblBono->idBono = $id;
@@ -76,11 +91,26 @@ class TblBonoMySqlDAO implements TblBonoDAO{
  	 */
 	public function update($tblBono){
 		$sql = 'UPDATE tbl_bono SET fecha = ?, id_tipo_bono = ?, id_empleado = ? WHERE id_bono = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->fecha)) || is_null($tblBono->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->idTipoBono)) || is_null($tblBono->idTipoBono))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblBono->idEmpleado)) || is_null($tblBono->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblBono->fecha);
-		$sqlQuery->setNumber($tblBono->idTipoBono);
-		$sqlQuery->setNumber($tblBono->idEmpleado);
+		if ((isset($tblBono->fecha)) && (!is_null($tblBono->fecha)))
+			$sqlQuery->set($tblBono->fecha);
+		if ((isset($tblBono->idTipoBono)) && (!is_null($tblBono->idTipoBono)))
+			$sqlQuery->setNumber($tblBono->idTipoBono);
+		if ((isset($tblBono->idEmpleado)) && (!is_null($tblBono->idEmpleado)))
+			$sqlQuery->setNumber($tblBono->idEmpleado);
 
 		$sqlQuery->setNumber($tblBono->idBono);
 		return $this->executeUpdate($sqlQuery);

@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_vacacion'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblVacacionMySqlDAO implements TblVacacionDAO{
 
@@ -58,11 +58,26 @@ class TblVacacionMySqlDAO implements TblVacacionDAO{
  	 */
 	public function insert($tblVacacion){
 		$sql = 'INSERT INTO tbl_vacacion (fecha_inicio, fecha_fin, id_empleado) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->fechaInicio)) || is_null($tblVacacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->fechaFin)) || is_null($tblVacacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->idEmpleado)) || is_null($tblVacacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblVacacion->fechaInicio);
-		$sqlQuery->set($tblVacacion->fechaFin);
-		$sqlQuery->setNumber($tblVacacion->idEmpleado);
+		if ((isset($tblVacacion->fechaInicio)) && (!is_null($tblVacacion->fechaInicio)))
+			$sqlQuery->set($tblVacacion->fechaInicio);
+		if ((isset($tblVacacion->fechaFin)) && (!is_null($tblVacacion->fechaFin)))
+			$sqlQuery->set($tblVacacion->fechaFin);
+		if ((isset($tblVacacion->idEmpleado)) && (!is_null($tblVacacion->idEmpleado)))
+			$sqlQuery->setNumber($tblVacacion->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblVacacion->idVacacion = $id;
@@ -76,11 +91,26 @@ class TblVacacionMySqlDAO implements TblVacacionDAO{
  	 */
 	public function update($tblVacacion){
 		$sql = 'UPDATE tbl_vacacion SET fecha_inicio = ?, fecha_fin = ?, id_empleado = ? WHERE id_vacacion = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->fechaInicio)) || is_null($tblVacacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->fechaFin)) || is_null($tblVacacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblVacacion->idEmpleado)) || is_null($tblVacacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblVacacion->fechaInicio);
-		$sqlQuery->set($tblVacacion->fechaFin);
-		$sqlQuery->setNumber($tblVacacion->idEmpleado);
+		if ((isset($tblVacacion->fechaInicio)) && (!is_null($tblVacacion->fechaInicio)))
+			$sqlQuery->set($tblVacacion->fechaInicio);
+		if ((isset($tblVacacion->fechaFin)) && (!is_null($tblVacacion->fechaFin)))
+			$sqlQuery->set($tblVacacion->fechaFin);
+		if ((isset($tblVacacion->idEmpleado)) && (!is_null($tblVacacion->idEmpleado)))
+			$sqlQuery->setNumber($tblVacacion->idEmpleado);
 
 		$sqlQuery->setNumber($tblVacacion->idVacacion);
 		return $this->executeUpdate($sqlQuery);

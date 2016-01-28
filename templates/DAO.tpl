@@ -58,6 +58,8 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
  	 */
 	public function insert($${var_name}){
 		$sql = 'INSERT INTO ${table_name} (${insert_fields}) VALUES (${question_marks})';
+		$qpos = 0;
+		${null_replacer}
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
 		$id = $this->executeInsert($sqlQuery);	
@@ -72,6 +74,8 @@ class ${dao_clazz_name}DAO implements ${idao_clazz_name}DAO{
  	 */
 	public function update($${var_name}){
 		$sql = 'UPDATE ${table_name} SET ${update_fields} WHERE ${pk} = ?';
+		$qpos = 0;
+		${null_replacer}
 		$sqlQuery = new SqlQuery($sql);
 		${parameter_setter}
 		$sqlQuery->set${pk_number}($${var_name}->${pk_php});

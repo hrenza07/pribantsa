@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_puesto_historico'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblPuestoHistoricoMySqlDAO implements TblPuestoHistoricoDAO{
 
@@ -58,12 +58,31 @@ class TblPuestoHistoricoMySqlDAO implements TblPuestoHistoricoDAO{
  	 */
 	public function insert($tblPuestoHistorico){
 		$sql = 'INSERT INTO tbl_puesto_historico (id_empleado, id_puesto_trabajo, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->idEmpleado)) || is_null($tblPuestoHistorico->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->idPuestoTrabajo)) || is_null($tblPuestoHistorico->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->fechaInicio)) || is_null($tblPuestoHistorico->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->fechaFin)) || is_null($tblPuestoHistorico->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPuestoHistorico->idEmpleado);
-		$sqlQuery->setNumber($tblPuestoHistorico->idPuestoTrabajo);
-		$sqlQuery->set($tblPuestoHistorico->fechaInicio);
-		$sqlQuery->set($tblPuestoHistorico->fechaFin);
+		if ((isset($tblPuestoHistorico->idEmpleado)) && (!is_null($tblPuestoHistorico->idEmpleado)))
+			$sqlQuery->setNumber($tblPuestoHistorico->idEmpleado);
+		if ((isset($tblPuestoHistorico->idPuestoTrabajo)) && (!is_null($tblPuestoHistorico->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblPuestoHistorico->idPuestoTrabajo);
+		if ((isset($tblPuestoHistorico->fechaInicio)) && (!is_null($tblPuestoHistorico->fechaInicio)))
+			$sqlQuery->set($tblPuestoHistorico->fechaInicio);
+		if ((isset($tblPuestoHistorico->fechaFin)) && (!is_null($tblPuestoHistorico->fechaFin)))
+			$sqlQuery->set($tblPuestoHistorico->fechaFin);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblPuestoHistorico->idPuestoHistorico = $id;
@@ -77,12 +96,31 @@ class TblPuestoHistoricoMySqlDAO implements TblPuestoHistoricoDAO{
  	 */
 	public function update($tblPuestoHistorico){
 		$sql = 'UPDATE tbl_puesto_historico SET id_empleado = ?, id_puesto_trabajo = ?, fecha_inicio = ?, fecha_fin = ? WHERE id_puesto_historico = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->idEmpleado)) || is_null($tblPuestoHistorico->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->idPuestoTrabajo)) || is_null($tblPuestoHistorico->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->fechaInicio)) || is_null($tblPuestoHistorico->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoHistorico->fechaFin)) || is_null($tblPuestoHistorico->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPuestoHistorico->idEmpleado);
-		$sqlQuery->setNumber($tblPuestoHistorico->idPuestoTrabajo);
-		$sqlQuery->set($tblPuestoHistorico->fechaInicio);
-		$sqlQuery->set($tblPuestoHistorico->fechaFin);
+		if ((isset($tblPuestoHistorico->idEmpleado)) && (!is_null($tblPuestoHistorico->idEmpleado)))
+			$sqlQuery->setNumber($tblPuestoHistorico->idEmpleado);
+		if ((isset($tblPuestoHistorico->idPuestoTrabajo)) && (!is_null($tblPuestoHistorico->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblPuestoHistorico->idPuestoTrabajo);
+		if ((isset($tblPuestoHistorico->fechaInicio)) && (!is_null($tblPuestoHistorico->fechaInicio)))
+			$sqlQuery->set($tblPuestoHistorico->fechaInicio);
+		if ((isset($tblPuestoHistorico->fechaFin)) && (!is_null($tblPuestoHistorico->fechaFin)))
+			$sqlQuery->set($tblPuestoHistorico->fechaFin);
 
 		$sqlQuery->setNumber($tblPuestoHistorico->idPuestoHistorico);
 		return $this->executeUpdate($sqlQuery);

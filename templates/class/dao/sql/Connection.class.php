@@ -15,6 +15,10 @@ class Connection{
 	public function close(){
 		ConnectionFactory::close($this->connection);
 	}
+    
+    public function escapestring($querystring) {
+        return mysqli_escape_string($this->connection, $querystring);
+    }
 
 	/**
 	 * Wykonanie zapytania sql na biezacym polaczeniu
@@ -23,7 +27,11 @@ class Connection{
 	 * @return wynik zapytania
 	 */
 	public function executeQuery($sql){
-		return mysql_query($sql, $this->connection);
+		return mysqli_query($this->connection, $sql);
+	}
+
+	public function getConnection(){
+		return $this->connection;
 	}
 }
 ?>

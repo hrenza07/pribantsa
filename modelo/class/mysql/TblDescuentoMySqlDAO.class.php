@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_descuento'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblDescuentoMySqlDAO implements TblDescuentoDAO{
 
@@ -58,11 +58,26 @@ class TblDescuentoMySqlDAO implements TblDescuentoDAO{
  	 */
 	public function insert($tblDescuento){
 		$sql = 'INSERT INTO tbl_descuento (fecha, id_tipo_descuento, id_empleado) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->fecha)) || is_null($tblDescuento->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->idTipoDescuento)) || is_null($tblDescuento->idTipoDescuento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->idEmpleado)) || is_null($tblDescuento->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblDescuento->fecha);
-		$sqlQuery->setNumber($tblDescuento->idTipoDescuento);
-		$sqlQuery->setNumber($tblDescuento->idEmpleado);
+		if ((isset($tblDescuento->fecha)) && (!is_null($tblDescuento->fecha)))
+			$sqlQuery->set($tblDescuento->fecha);
+		if ((isset($tblDescuento->idTipoDescuento)) && (!is_null($tblDescuento->idTipoDescuento)))
+			$sqlQuery->setNumber($tblDescuento->idTipoDescuento);
+		if ((isset($tblDescuento->idEmpleado)) && (!is_null($tblDescuento->idEmpleado)))
+			$sqlQuery->setNumber($tblDescuento->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblDescuento->idDescuento = $id;
@@ -76,11 +91,26 @@ class TblDescuentoMySqlDAO implements TblDescuentoDAO{
  	 */
 	public function update($tblDescuento){
 		$sql = 'UPDATE tbl_descuento SET fecha = ?, id_tipo_descuento = ?, id_empleado = ? WHERE id_descuento = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->fecha)) || is_null($tblDescuento->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->idTipoDescuento)) || is_null($tblDescuento->idTipoDescuento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDescuento->idEmpleado)) || is_null($tblDescuento->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblDescuento->fecha);
-		$sqlQuery->setNumber($tblDescuento->idTipoDescuento);
-		$sqlQuery->setNumber($tblDescuento->idEmpleado);
+		if ((isset($tblDescuento->fecha)) && (!is_null($tblDescuento->fecha)))
+			$sqlQuery->set($tblDescuento->fecha);
+		if ((isset($tblDescuento->idTipoDescuento)) && (!is_null($tblDescuento->idTipoDescuento)))
+			$sqlQuery->setNumber($tblDescuento->idTipoDescuento);
+		if ((isset($tblDescuento->idEmpleado)) && (!is_null($tblDescuento->idEmpleado)))
+			$sqlQuery->setNumber($tblDescuento->idEmpleado);
 
 		$sqlQuery->setNumber($tblDescuento->idDescuento);
 		return $this->executeUpdate($sqlQuery);

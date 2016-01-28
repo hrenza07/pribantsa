@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_educacion'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblEducacionMySqlDAO implements TblEducacionDAO{
 
@@ -58,12 +58,31 @@ class TblEducacionMySqlDAO implements TblEducacionDAO{
  	 */
 	public function insert($tblEducacion){
 		$sql = 'INSERT INTO tbl_educacion (titulo, fecha_inicio, fecha_fin, id_empleado) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->titulo)) || is_null($tblEducacion->titulo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->fechaInicio)) || is_null($tblEducacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->fechaFin)) || is_null($tblEducacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->idEmpleado)) || is_null($tblEducacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEducacion->titulo);
-		$sqlQuery->set($tblEducacion->fechaInicio);
-		$sqlQuery->set($tblEducacion->fechaFin);
-		$sqlQuery->setNumber($tblEducacion->idEmpleado);
+		if ((isset($tblEducacion->titulo)) && (!is_null($tblEducacion->titulo)))
+			$sqlQuery->set($tblEducacion->titulo);
+		if ((isset($tblEducacion->fechaInicio)) && (!is_null($tblEducacion->fechaInicio)))
+			$sqlQuery->set($tblEducacion->fechaInicio);
+		if ((isset($tblEducacion->fechaFin)) && (!is_null($tblEducacion->fechaFin)))
+			$sqlQuery->set($tblEducacion->fechaFin);
+		if ((isset($tblEducacion->idEmpleado)) && (!is_null($tblEducacion->idEmpleado)))
+			$sqlQuery->setNumber($tblEducacion->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblEducacion->idEducacion = $id;
@@ -77,12 +96,31 @@ class TblEducacionMySqlDAO implements TblEducacionDAO{
  	 */
 	public function update($tblEducacion){
 		$sql = 'UPDATE tbl_educacion SET titulo = ?, fecha_inicio = ?, fecha_fin = ?, id_empleado = ? WHERE id_educacion = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->titulo)) || is_null($tblEducacion->titulo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->fechaInicio)) || is_null($tblEducacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->fechaFin)) || is_null($tblEducacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEducacion->idEmpleado)) || is_null($tblEducacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEducacion->titulo);
-		$sqlQuery->set($tblEducacion->fechaInicio);
-		$sqlQuery->set($tblEducacion->fechaFin);
-		$sqlQuery->setNumber($tblEducacion->idEmpleado);
+		if ((isset($tblEducacion->titulo)) && (!is_null($tblEducacion->titulo)))
+			$sqlQuery->set($tblEducacion->titulo);
+		if ((isset($tblEducacion->fechaInicio)) && (!is_null($tblEducacion->fechaInicio)))
+			$sqlQuery->set($tblEducacion->fechaInicio);
+		if ((isset($tblEducacion->fechaFin)) && (!is_null($tblEducacion->fechaFin)))
+			$sqlQuery->set($tblEducacion->fechaFin);
+		if ((isset($tblEducacion->idEmpleado)) && (!is_null($tblEducacion->idEmpleado)))
+			$sqlQuery->setNumber($tblEducacion->idEmpleado);
 
 		$sqlQuery->setNumber($tblEducacion->idEducacion);
 		return $this->executeUpdate($sqlQuery);

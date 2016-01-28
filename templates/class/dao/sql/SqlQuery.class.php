@@ -25,7 +25,13 @@ class SqlQuery{
 	 * @param String $value value set
 	 */
 	public function setString($value){
-		$value = mysql_real_escape_string($value);
+        $transaction = Transaction::getCurrentTransaction();
+        if(!$transaction){
+            $connection = new Connection();
+        }else{
+            $connection = $transaction->getConnection();
+        }
+        $connection->escapestring($value);
 		$this->params[$this->idx++] = "'".$value."'";
 	}
 	
@@ -35,7 +41,13 @@ class SqlQuery{
 	 * @param String $value value to set
 	 */
 	public function set($value){
-		$value = mysql_real_escape_string($value);
+        $transaction = Transaction::getCurrentTransaction();
+        if(!$transaction){
+            $connection = new Connection();
+        }else{
+            $connection = $transaction->getConnection();           
+        }
+        $connection->escapestring($value);
 		$this->params[$this->idx++] = "'".$value."'";
 	}
 	
@@ -72,32 +84,11 @@ class SqlQuery{
 			if($i>=count($this->params)){
 				$sql .= $p[$i];
 			}else{
-                            if("null"===$this->params[$i]){
-                                $columnName = $this->getColumnName($p[$i]);
-                                if(isset($columnName)){
-                                    $sql .= $columnName."is ".$this->params[$i];
-                                }else{
-                                    $sql .= $p[$i].$this->params[$i];
-                                }
-                            }else{
-                                $sql .= $p[$i].$this->params[$i];
-                            }
+				$sql .= $p[$i].$this->params[$i];
 			}
 		}
 		return $sql;
 	}
-        
-        private function getColumnName($textCopy){
-                $trimmedUppercaseSql = trim(strtoupper($this->txt));
-                if($this->startsWith($trimmedUppercaseSql, "SELECT ")){
-                    $rightTrimmedTextCopy = rtrim($textCopy, " ");
-                    $columnName = rtrim($rightTrimmedTextCopy, "=");
-                    if(strlen($columnName) !== strlen($rightTrimmedTextCopy)){
-                        return $columnName;
-                    }
-                }
-                return null;
-        }
 	
 	/**
 	 * Function replace first char
@@ -117,34 +108,5 @@ class SqlQuery{
 		}
 		return $str;
 	}
-        
-        /**
-         * Function to check if a string starts with a given text
-         * 
-         * @param type $haystack the string
-         * @param type $needle the given text
-         * @return type true if the string starts with the text
-         */
-        private function startsWith($haystack, $needle)
-        {
-            return !strncmp($haystack, $needle, strlen($needle));
-        }
-
-        /**
-         * Function to check if the string ends with the given text
-         * 
-         * @param type $haystack the string
-         * @param type $needle the given text
-         * @return boolean true if the string ends with the text
-         */
-        private function endsWith($haystack, $needle)
-        {
-            $length = strlen($needle);
-            if ($length == 0) {
-                return true;
-            }
-
-            return (substr($haystack, -$length) === $needle);
-        }        
 }
 ?>

@@ -21,28 +21,21 @@ class QueryExecutor{
 			$connection = $transaction->getConnection();
 		}		
 		$query = $sqlQuery->getQuery();
-//                $pos = strpos($query, "null");
-//                if ($pos != false) {
-//                    if(true) {
-//                      writeToFile($query);
-//                    }
-//                }
 		$result = $connection->executeQuery($query);
 		if(!$result){
-			throw new Exception("SQL Error: -->".$query."<--" . mysql_error());
+			throw new Exception(mysqli_error($connection->getConnection()));
 		}
 		$i=0;
 		$tab = array();
-		while ($row = mysql_fetch_array($result)){
+		while ($row = mysqli_fetch_array($result)){
 			$tab[$i++] = $row;
 		}
-		mysql_free_result($result);
+		mysqli_free_result($result);
 		if(!$transaction){
 			$connection->close();
 		}
 		return $tab;
 	}
-	
 	
 	public static function executeUpdate($sqlQuery){
 		$transaction = Transaction::getCurrentTransaction();
@@ -54,14 +47,24 @@ class QueryExecutor{
 		$query = $sqlQuery->getQuery();
 		$result = $connection->executeQuery($query);
 		if(!$result){
-			throw new Exception("SQL Error: -->".$query."<--" . mysql_error());
+			throw new Exception(mysqli_error($connection->getConnection()));
 		}
-		return mysql_affected_rows();		
+		return mysqli_affected_rows($connection->getConnection());		
 	}
 
 	public static function executeInsert($sqlQuery){
-		QueryExecutor::executeUpdate($sqlQuery);
-		return mysql_insert_id();
+		$transaction = Transaction::getCurrentTransaction();
+		if(!$transaction){
+			$connection = new Connection();
+		}else{
+			$connection = $transaction->getConnection();
+		}		
+		$query = $sqlQuery->getQuery();
+		$result = $connection->executeQuery($query);
+		if(!$result){
+			throw new Exception(mysqli_error($connection->getConnection()));
+		}
+		return mysqli_insert_id($connection->getConnection());
 	}
 	
 	/**
@@ -79,9 +82,9 @@ class QueryExecutor{
 		}
 		$result = $connection->executeQuery($sqlQuery->getQuery());
 		if(!$result){
-			throw new Exception("SQL Error: -->".$sqlQuery->getQuery()."<--" . mysql_error());
+			throw new Exception(mysqli_error($connection->getConnection()));
 		}
-		$row = mysql_fetch_array($result);		
+		$row = mysqli_fetch_array($result);		
 		return $row[0];
 	}
 

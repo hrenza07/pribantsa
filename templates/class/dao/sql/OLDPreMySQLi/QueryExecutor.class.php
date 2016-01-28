@@ -23,19 +23,20 @@ class QueryExecutor{
 		$query = $sqlQuery->getQuery();
 		$result = $connection->executeQuery($query);
 		if(!$result){
-			throw new Exception(mysqli_error($connection->getConnection()));
+			throw new Exception(mysql_error());
 		}
 		$i=0;
 		$tab = array();
-		while ($row = mysqli_fetch_array($result)){
+		while ($row = mysql_fetch_array($result)){
 			$tab[$i++] = $row;
 		}
-		mysqli_free_result($result);
+		mysql_free_result($result);
 		if(!$transaction){
 			$connection->close();
 		}
 		return $tab;
 	}
+	
 	
 	public static function executeUpdate($sqlQuery){
 		$transaction = Transaction::getCurrentTransaction();
@@ -47,24 +48,14 @@ class QueryExecutor{
 		$query = $sqlQuery->getQuery();
 		$result = $connection->executeQuery($query);
 		if(!$result){
-			throw new Exception(mysqli_error($connection->getConnection()));
+			throw new Exception(mysql_error());
 		}
-		return mysqli_affected_rows($connection->getConnection());		
+		return mysql_affected_rows();		
 	}
 
 	public static function executeInsert($sqlQuery){
-		$transaction = Transaction::getCurrentTransaction();
-		if(!$transaction){
-			$connection = new Connection();
-		}else{
-			$connection = $transaction->getConnection();
-		}		
-		$query = $sqlQuery->getQuery();
-		$result = $connection->executeQuery($query);
-		if(!$result){
-			throw new Exception(mysqli_error($connection->getConnection()));
-		}
-		return mysqli_insert_id($connection->getConnection());
+		QueryExecutor::executeUpdate($sqlQuery);
+		return mysql_insert_id();
 	}
 	
 	/**
@@ -82,9 +73,9 @@ class QueryExecutor{
 		}
 		$result = $connection->executeQuery($sqlQuery->getQuery());
 		if(!$result){
-			throw new Exception(mysqli_error($connection->getConnection()));
+			throw new Exception(mysql_error());
 		}
-		$row = mysqli_fetch_array($result);		
+		$row = mysql_fetch_array($result);		
 		return $row[0];
 	}
 

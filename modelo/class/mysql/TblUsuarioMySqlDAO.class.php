@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_usuario'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 
@@ -58,11 +58,26 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
  	 */
 	public function insert($tblUsuario){
 		$sql = 'INSERT INTO tbl_usuario (id_empleado, contrasena, privilegio) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->idEmpleado)) || is_null($tblUsuario->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->contrasena)) || is_null($tblUsuario->contrasena))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->privilegio)) || is_null($tblUsuario->privilegio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblUsuario->idEmpleado);
-		$sqlQuery->set($tblUsuario->contrasena);
-		$sqlQuery->setNumber($tblUsuario->privilegio);
+		if ((isset($tblUsuario->idEmpleado)) && (!is_null($tblUsuario->idEmpleado)))
+			$sqlQuery->setNumber($tblUsuario->idEmpleado);
+		if ((isset($tblUsuario->contrasena)) && (!is_null($tblUsuario->contrasena)))
+			$sqlQuery->set($tblUsuario->contrasena);
+		if ((isset($tblUsuario->privilegio)) && (!is_null($tblUsuario->privilegio)))
+			$sqlQuery->setNumber($tblUsuario->privilegio);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblUsuario->idUsuario = $id;
@@ -76,11 +91,26 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
  	 */
 	public function update($tblUsuario){
 		$sql = 'UPDATE tbl_usuario SET id_empleado = ?, contrasena = ?, privilegio = ? WHERE id_usuario = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->idEmpleado)) || is_null($tblUsuario->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->contrasena)) || is_null($tblUsuario->contrasena))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->privilegio)) || is_null($tblUsuario->privilegio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblUsuario->idEmpleado);
-		$sqlQuery->set($tblUsuario->contrasena);
-		$sqlQuery->setNumber($tblUsuario->privilegio);
+		if ((isset($tblUsuario->idEmpleado)) && (!is_null($tblUsuario->idEmpleado)))
+			$sqlQuery->setNumber($tblUsuario->idEmpleado);
+		if ((isset($tblUsuario->contrasena)) && (!is_null($tblUsuario->contrasena)))
+			$sqlQuery->set($tblUsuario->contrasena);
+		if ((isset($tblUsuario->privilegio)) && (!is_null($tblUsuario->privilegio)))
+			$sqlQuery->setNumber($tblUsuario->privilegio);
 
 		$sqlQuery->setNumber($tblUsuario->idUsuario);
 		return $this->executeUpdate($sqlQuery);

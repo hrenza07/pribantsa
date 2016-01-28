@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_evaluacion'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblEvaluacionMySqlDAO implements TblEvaluacionDAO{
 
@@ -58,12 +58,31 @@ class TblEvaluacionMySqlDAO implements TblEvaluacionDAO{
  	 */
 	public function insert($tblEvaluacion){
 		$sql = 'INSERT INTO tbl_evaluacion (puntaje, fecha, id_empleado, id_criterio) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->puntaje)) || is_null($tblEvaluacion->puntaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->fecha)) || is_null($tblEvaluacion->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->idEmpleado)) || is_null($tblEvaluacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->idCriterio)) || is_null($tblEvaluacion->idCriterio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEvaluacion->puntaje);
-		$sqlQuery->set($tblEvaluacion->fecha);
-		$sqlQuery->setNumber($tblEvaluacion->idEmpleado);
-		$sqlQuery->setNumber($tblEvaluacion->idCriterio);
+		if ((isset($tblEvaluacion->puntaje)) && (!is_null($tblEvaluacion->puntaje)))
+			$sqlQuery->set($tblEvaluacion->puntaje);
+		if ((isset($tblEvaluacion->fecha)) && (!is_null($tblEvaluacion->fecha)))
+			$sqlQuery->set($tblEvaluacion->fecha);
+		if ((isset($tblEvaluacion->idEmpleado)) && (!is_null($tblEvaluacion->idEmpleado)))
+			$sqlQuery->setNumber($tblEvaluacion->idEmpleado);
+		if ((isset($tblEvaluacion->idCriterio)) && (!is_null($tblEvaluacion->idCriterio)))
+			$sqlQuery->setNumber($tblEvaluacion->idCriterio);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblEvaluacion->idEvaluacion = $id;
@@ -77,12 +96,31 @@ class TblEvaluacionMySqlDAO implements TblEvaluacionDAO{
  	 */
 	public function update($tblEvaluacion){
 		$sql = 'UPDATE tbl_evaluacion SET puntaje = ?, fecha = ?, id_empleado = ?, id_criterio = ? WHERE id_evaluacion = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->puntaje)) || is_null($tblEvaluacion->puntaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->fecha)) || is_null($tblEvaluacion->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->idEmpleado)) || is_null($tblEvaluacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblEvaluacion->idCriterio)) || is_null($tblEvaluacion->idCriterio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblEvaluacion->puntaje);
-		$sqlQuery->set($tblEvaluacion->fecha);
-		$sqlQuery->setNumber($tblEvaluacion->idEmpleado);
-		$sqlQuery->setNumber($tblEvaluacion->idCriterio);
+		if ((isset($tblEvaluacion->puntaje)) && (!is_null($tblEvaluacion->puntaje)))
+			$sqlQuery->set($tblEvaluacion->puntaje);
+		if ((isset($tblEvaluacion->fecha)) && (!is_null($tblEvaluacion->fecha)))
+			$sqlQuery->set($tblEvaluacion->fecha);
+		if ((isset($tblEvaluacion->idEmpleado)) && (!is_null($tblEvaluacion->idEmpleado)))
+			$sqlQuery->setNumber($tblEvaluacion->idEmpleado);
+		if ((isset($tblEvaluacion->idCriterio)) && (!is_null($tblEvaluacion->idCriterio)))
+			$sqlQuery->setNumber($tblEvaluacion->idCriterio);
 
 		$sqlQuery->setNumber($tblEvaluacion->idEvaluacion);
 		return $this->executeUpdate($sqlQuery);

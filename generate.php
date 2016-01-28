@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once('templates/class/dao/sql/Connection.class.php');
 require_once('templates/class/dao/sql/ConnectionFactory.class.php');
 require_once('templates/class/dao/sql/ConnectionProperty.class.php');
@@ -12,10 +13,10 @@ function generate(){
 	init();
 	$sql = 'SHOW TABLES';
 	$ret = QueryExecutor::execute(new SqlQuery($sql));
-	getnerateDomainObjects($ret);
-	getnerateDAOObjects($ret);
-	getnerateDAOExtObjects($ret);
-	getnerateIDAOObjects($ret);
+	modeloomainObjects($ret);
+	modeloAOObjects($ret);
+	modeloAOExtObjects($ret);
+	generateIDAOObjects($ret);
 	createIncludeFile($ret);
 	createDAOFactory($ret);
 }
@@ -57,13 +58,15 @@ function createIncludeFile($ret){
 }
 
 function doesTableContainPK($row){
-	$row = getFields($row[0]);
-	for($j=0;$j<count($row);$j++){
-		if($row[$j][3]=='PRI'){
-			return true;
-		}
-	}
-	return false;
+    //RJG - Views - return true so that views are modelo too.
+	return true;
+	//$row = getFields($row[0]);
+	//for($j=0;$j<count($row);$j++){
+	//	if($row[$j][3]=='PRI'){
+	//		return true;
+	//	}
+	//}
+	//return false;
 }
 
 function createDAOFactory($ret){
@@ -92,7 +95,7 @@ function createDAOFactory($ret){
  * @param unknown_type $ret
  * @return
  */
-function getnerateDomainObjects($ret){
+function modeloomainObjects($ret){
 	for($i=0;$i<count($ret);$i++){
 		if(!doesTableContainPK($ret[$i])){
 			continue;
@@ -116,7 +119,7 @@ function getnerateDomainObjects($ret){
 	}
 }
 
-function getnerateDAOExtObjects($ret){
+function modeloAOExtObjects($ret){
 	for($i=0;$i<count($ret);$i++){
 		if(!doesTableContainPK($ret[$i])){
 			continue;
@@ -132,6 +135,7 @@ function getnerateDAOExtObjects($ret){
 		$template->set('table_name', $tableName);
 		$template->set('var_name', getVarName($tableName));
 		$tab = getFields($tableName);
+		$nullReplacer = "\n";
 		$parameterSetter = "\n";
 		$insertFields = "";
 		$updateFields = "";
@@ -140,6 +144,15 @@ function getnerateDAOExtObjects($ret){
 		$pk = '';
 		$queryByField = '';
 		$deleteByField = '';
+		//RJG - Default for no primary key the first column - so that views and tables without a primary key appear
+		//Assume the first field is the primary key
+		$primary_found = false;
+		for($j=0;$j<count($tab);$j++)
+			if($tab[$j][3]=='PRI')
+				$primary_found = true;
+		if (!$primary_found)
+			$tab[0][3]='PRI';
+		//RJG End
 		for($j=0;$j<count($tab);$j++){
 			if($tab[$j][3]=='PRI'){
 				$pk = $tab[$j][0];
@@ -147,11 +160,14 @@ function getnerateDAOExtObjects($ret){
 				$insertFields .= $tab[$j][0].", ";
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
+				//RJG - to handle insert and update with nulls
+				$nullReplacer .= "\t\t\$qpos = strpos(\$sql, '?', \$qpos);\n\t\tif ((!isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) || is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0])."))\n\t\t\t\$sql = substr_replace(\$sql, 'NULL', \$qpos, 1);\n";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}else{
-					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}
+				//RJG End
 				$parameterSetter2 = '';
 				if(isColumnTypeNumber($tab[$j][1])){
 					$parameterSetter2 .= "Number";
@@ -183,6 +199,7 @@ function getnerateDAOExtObjects($ret){
 		$template->set('read_row', $readRow);
 		$template->set('update_fields', $updateFields);
 		$template->set('question_marks', $questionMarks);
+		$template->set('null_replacer', $nullReplacer);
 		$template->set('parameter_setter',$parameterSetter);
 		$template->set('read_row',$readRow);
 		$template->set('date', date("Y-m-d H:i"));
@@ -196,7 +213,7 @@ function getnerateDAOExtObjects($ret){
 }
 
 
-function getnerateDAOObjects($ret){
+function modeloAOObjects($ret){
 	for($i=0;$i<count($ret);$i++){
 		if(!doesTableContainPK($ret[$i])){
 			continue;
@@ -205,6 +222,7 @@ function getnerateDAOObjects($ret){
 		$clazzName = getClazzName($tableName).'MySql';
 
 		$tab = getFields($tableName);
+		$nullReplacer = "\n";
 		$parameterSetter = "\n";
 		$insertFields = "";
 		$updateFields = "";
@@ -215,6 +233,15 @@ function getnerateDAOObjects($ret){
 		$queryByField = '';
 		$deleteByField = '';
 		$pk_type='';
+		//RJG - Default for no primary key the first column - so that views and tables without a primary key appear
+		//Assume the first field is the primary key
+		$primary_found = false;
+		for($j=0;$j<count($tab);$j++)
+			if($tab[$j][3]=='PRI')
+				$primary_found = true;
+		if (!$primary_found)
+			$tab[0][3]='PRI';
+		//RJG End
 		for($j=0;$j<count($tab);$j++){
 			if($tab[$j][3]=='PRI'){
 				$pk = $tab[$j][0];
@@ -225,11 +252,14 @@ function getnerateDAOObjects($ret){
 				$insertFields .= $tab[$j][0].", ";
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
+				//RJG - to handle insert and update with nulls
+				$nullReplacer .= "\t\t\$qpos = strpos(\$sql, '?', \$qpos + 1);\n\t\tif ((!isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) || is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0])."))\n\t\t\t\$sql = substr_replace(\$sql, 'NULL', \$qpos, 1);\n";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}else{
-					$parameterSetter .= "\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}
+				//RJG End
 				$parameterSetter2 = '';
 				if(isColumnTypeNumber($tab[$j][1])){
 					$parameterSetter2 .= "Number";
@@ -309,6 +339,7 @@ function getnerateDAOObjects($ret){
 		$template->set('read_row', $readRow);
 		$template->set('update_fields', $updateFields);
 		$template->set('question_marks', $questionMarks);
+		$template->set('null_replacer', $nullReplacer);
 		$template->set('parameter_setter',$parameterSetter);
 		$template->set('read_row',$readRow);
 		$template->set('date', date("Y-m-d H:i"));
@@ -326,7 +357,7 @@ function isColumnTypeNumber($columnType){
 	return false;
 }
 
-function getnerateIDAOObjects($ret){
+function generateIDAOObjects($ret){
 	for($i=0;$i<count($ret);$i++){
 		if(!doesTableContainPK($ret[$i])){
 			continue;
@@ -334,6 +365,7 @@ function getnerateIDAOObjects($ret){
 		$tableName = $ret[$i][0];
 		$clazzName = getClazzName($tableName);
 		$tab = getFields($tableName);
+		$nullReplacer = "\n";
 		$parameterSetter = "\n";
 		$insertFields = "";
 		$updateFields = "";
@@ -343,6 +375,15 @@ function getnerateIDAOObjects($ret){
 		$pks = array();
 		$queryByField = '';
 		$deleteByField = '';
+		//RJG - Default for no primary key the first column - so that views and tables without a primary key appear
+		//Assume the first field is the primary key
+		$primary_found = false;
+		for($j=0;$j<count($tab);$j++)
+			if($tab[$j][3]=='PRI')
+				$primary_found = true;
+		if (!$primary_found)
+			$tab[0][3]='PRI';
+		//RJG End
 		for($j=0;$j<count($tab);$j++){
 			if($tab[$j][3]=='PRI'){
 				$pk = $tab[$j][0];
@@ -352,11 +393,14 @@ function getnerateIDAOObjects($ret){
 				$insertFields .= $tab[$j][0].", ";
 				$updateFields .= $tab[$j][0]." = ?, ";
 				$questionMarks .= "?, ";
+				//RJG - to handle insert and update with nulls
+				$nullReplacer .= "\t\t\$qpos = strpos(\$sql, '?', \$qpos + 1);\n\t\tif ((!isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) || is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0])."))\n\t\t\t\$sql = substr_replace(\$sql, 'NULL', \$qpos, 1);\n";
 				if(isColumnTypeNumber($tab[$j][1])){
-					$parameterSetter .= "\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->setNumber($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}else{
-					$parameterSetter .= "\t\t".'$sqlQuery->set($'.getVarName($tab[$j][0]).');'."\n";
+					$parameterSetter .= "\t\tif ((isset($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")) && (!is_null($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).")))\n\t\t\t\$sqlQuery->set($".getVarName($tableName)."->".getVarNameWithS($tab[$j][0]).");\n";
 				}
+				//RJG End
 				$queryByField .= "\tpublic function queryBy".getClazzName($tab[$j][0])."(\$value);\n\n";
 				$deleteByField .= "\tpublic function deleteBy".getClazzName($tab[$j][0])."(\$value);\n\n";
 			}
@@ -413,6 +457,7 @@ function getnerateIDAOObjects($ret){
 		$template->set('read_row', $readRow);
 		$template->set('update_fields', $updateFields);
 		$template->set('question_marks', $questionMarks);
+		$template->set('null_replacer', $nullReplacer);
 		$template->set('parameter_setter',$parameterSetter);
 		$template->set('read_row',$readRow);
 		$template->set('date', date("Y-m-d H:i"));

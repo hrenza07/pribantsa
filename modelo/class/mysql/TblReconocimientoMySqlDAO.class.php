@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_reconocimiento'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblReconocimientoMySqlDAO implements TblReconocimientoDAO{
 
@@ -58,10 +58,21 @@ class TblReconocimientoMySqlDAO implements TblReconocimientoDAO{
  	 */
 	public function insert($tblReconocimiento){
 		$sql = 'INSERT INTO tbl_reconocimiento (descripcion, id_empleado) VALUES (?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblReconocimiento->descripcion)) || is_null($tblReconocimiento->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblReconocimiento->idEmpleado)) || is_null($tblReconocimiento->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblReconocimiento->descripcion);
-		$sqlQuery->setNumber($tblReconocimiento->idEmpleado);
+		if ((isset($tblReconocimiento->descripcion)) && (!is_null($tblReconocimiento->descripcion)))
+			$sqlQuery->set($tblReconocimiento->descripcion);
+		if ((isset($tblReconocimiento->idEmpleado)) && (!is_null($tblReconocimiento->idEmpleado)))
+			$sqlQuery->setNumber($tblReconocimiento->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblReconocimiento->idReconocimiento = $id;
@@ -75,10 +86,21 @@ class TblReconocimientoMySqlDAO implements TblReconocimientoDAO{
  	 */
 	public function update($tblReconocimiento){
 		$sql = 'UPDATE tbl_reconocimiento SET descripcion = ?, id_empleado = ? WHERE id_reconocimiento = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblReconocimiento->descripcion)) || is_null($tblReconocimiento->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblReconocimiento->idEmpleado)) || is_null($tblReconocimiento->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblReconocimiento->descripcion);
-		$sqlQuery->setNumber($tblReconocimiento->idEmpleado);
+		if ((isset($tblReconocimiento->descripcion)) && (!is_null($tblReconocimiento->descripcion)))
+			$sqlQuery->set($tblReconocimiento->descripcion);
+		if ((isset($tblReconocimiento->idEmpleado)) && (!is_null($tblReconocimiento->idEmpleado)))
+			$sqlQuery->setNumber($tblReconocimiento->idEmpleado);
 
 		$sqlQuery->setNumber($tblReconocimiento->idReconocimiento);
 		return $this->executeUpdate($sqlQuery);

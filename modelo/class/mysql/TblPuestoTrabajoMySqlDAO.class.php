@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_puesto_trabajo'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblPuestoTrabajoMySqlDAO implements TblPuestoTrabajoDAO{
 
@@ -58,13 +58,36 @@ class TblPuestoTrabajoMySqlDAO implements TblPuestoTrabajoDAO{
  	 */
 	public function insert($tblPuestoTrabajo){
 		$sql = 'INSERT INTO tbl_puesto_trabajo (id_departamento, nombre, descripcion, salario_min, salario_max) VALUES (?, ?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->idDepartamento)) || is_null($tblPuestoTrabajo->idDepartamento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->nombre)) || is_null($tblPuestoTrabajo->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->descripcion)) || is_null($tblPuestoTrabajo->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->salarioMin)) || is_null($tblPuestoTrabajo->salarioMin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->salarioMax)) || is_null($tblPuestoTrabajo->salarioMax))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPuestoTrabajo->idDepartamento);
-		$sqlQuery->set($tblPuestoTrabajo->nombre);
-		$sqlQuery->set($tblPuestoTrabajo->descripcion);
-		$sqlQuery->set($tblPuestoTrabajo->salarioMin);
-		$sqlQuery->set($tblPuestoTrabajo->salarioMax);
+		if ((isset($tblPuestoTrabajo->idDepartamento)) && (!is_null($tblPuestoTrabajo->idDepartamento)))
+			$sqlQuery->setNumber($tblPuestoTrabajo->idDepartamento);
+		if ((isset($tblPuestoTrabajo->nombre)) && (!is_null($tblPuestoTrabajo->nombre)))
+			$sqlQuery->set($tblPuestoTrabajo->nombre);
+		if ((isset($tblPuestoTrabajo->descripcion)) && (!is_null($tblPuestoTrabajo->descripcion)))
+			$sqlQuery->set($tblPuestoTrabajo->descripcion);
+		if ((isset($tblPuestoTrabajo->salarioMin)) && (!is_null($tblPuestoTrabajo->salarioMin)))
+			$sqlQuery->set($tblPuestoTrabajo->salarioMin);
+		if ((isset($tblPuestoTrabajo->salarioMax)) && (!is_null($tblPuestoTrabajo->salarioMax)))
+			$sqlQuery->set($tblPuestoTrabajo->salarioMax);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblPuestoTrabajo->idPuestoTrabajo = $id;
@@ -78,13 +101,36 @@ class TblPuestoTrabajoMySqlDAO implements TblPuestoTrabajoDAO{
  	 */
 	public function update($tblPuestoTrabajo){
 		$sql = 'UPDATE tbl_puesto_trabajo SET id_departamento = ?, nombre = ?, descripcion = ?, salario_min = ?, salario_max = ? WHERE id_puesto_trabajo = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->idDepartamento)) || is_null($tblPuestoTrabajo->idDepartamento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->nombre)) || is_null($tblPuestoTrabajo->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->descripcion)) || is_null($tblPuestoTrabajo->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->salarioMin)) || is_null($tblPuestoTrabajo->salarioMin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPuestoTrabajo->salarioMax)) || is_null($tblPuestoTrabajo->salarioMax))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPuestoTrabajo->idDepartamento);
-		$sqlQuery->set($tblPuestoTrabajo->nombre);
-		$sqlQuery->set($tblPuestoTrabajo->descripcion);
-		$sqlQuery->set($tblPuestoTrabajo->salarioMin);
-		$sqlQuery->set($tblPuestoTrabajo->salarioMax);
+		if ((isset($tblPuestoTrabajo->idDepartamento)) && (!is_null($tblPuestoTrabajo->idDepartamento)))
+			$sqlQuery->setNumber($tblPuestoTrabajo->idDepartamento);
+		if ((isset($tblPuestoTrabajo->nombre)) && (!is_null($tblPuestoTrabajo->nombre)))
+			$sqlQuery->set($tblPuestoTrabajo->nombre);
+		if ((isset($tblPuestoTrabajo->descripcion)) && (!is_null($tblPuestoTrabajo->descripcion)))
+			$sqlQuery->set($tblPuestoTrabajo->descripcion);
+		if ((isset($tblPuestoTrabajo->salarioMin)) && (!is_null($tblPuestoTrabajo->salarioMin)))
+			$sqlQuery->set($tblPuestoTrabajo->salarioMin);
+		if ((isset($tblPuestoTrabajo->salarioMax)) && (!is_null($tblPuestoTrabajo->salarioMax)))
+			$sqlQuery->set($tblPuestoTrabajo->salarioMax);
 
 		$sqlQuery->setNumber($tblPuestoTrabajo->idPuestoTrabajo);
 		return $this->executeUpdate($sqlQuery);

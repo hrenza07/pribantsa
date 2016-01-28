@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_tipo_descuento'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblTipoDescuentoMySqlDAO implements TblTipoDescuentoDAO{
 
@@ -58,11 +58,26 @@ class TblTipoDescuentoMySqlDAO implements TblTipoDescuentoDAO{
  	 */
 	public function insert($tblTipoDescuento){
 		$sql = 'INSERT INTO tbl_tipo_descuento (nombre, porcentaje, monto) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->nombre)) || is_null($tblTipoDescuento->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->porcentaje)) || is_null($tblTipoDescuento->porcentaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->monto)) || is_null($tblTipoDescuento->monto))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblTipoDescuento->nombre);
-		$sqlQuery->set($tblTipoDescuento->porcentaje);
-		$sqlQuery->set($tblTipoDescuento->monto);
+		if ((isset($tblTipoDescuento->nombre)) && (!is_null($tblTipoDescuento->nombre)))
+			$sqlQuery->set($tblTipoDescuento->nombre);
+		if ((isset($tblTipoDescuento->porcentaje)) && (!is_null($tblTipoDescuento->porcentaje)))
+			$sqlQuery->set($tblTipoDescuento->porcentaje);
+		if ((isset($tblTipoDescuento->monto)) && (!is_null($tblTipoDescuento->monto)))
+			$sqlQuery->set($tblTipoDescuento->monto);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblTipoDescuento->idTipoDescuento = $id;
@@ -76,11 +91,26 @@ class TblTipoDescuentoMySqlDAO implements TblTipoDescuentoDAO{
  	 */
 	public function update($tblTipoDescuento){
 		$sql = 'UPDATE tbl_tipo_descuento SET nombre = ?, porcentaje = ?, monto = ? WHERE id_tipo_descuento = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->nombre)) || is_null($tblTipoDescuento->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->porcentaje)) || is_null($tblTipoDescuento->porcentaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoDescuento->monto)) || is_null($tblTipoDescuento->monto))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblTipoDescuento->nombre);
-		$sqlQuery->set($tblTipoDescuento->porcentaje);
-		$sqlQuery->set($tblTipoDescuento->monto);
+		if ((isset($tblTipoDescuento->nombre)) && (!is_null($tblTipoDescuento->nombre)))
+			$sqlQuery->set($tblTipoDescuento->nombre);
+		if ((isset($tblTipoDescuento->porcentaje)) && (!is_null($tblTipoDescuento->porcentaje)))
+			$sqlQuery->set($tblTipoDescuento->porcentaje);
+		if ((isset($tblTipoDescuento->monto)) && (!is_null($tblTipoDescuento->monto)))
+			$sqlQuery->set($tblTipoDescuento->monto);
 
 		$sqlQuery->setNumber($tblTipoDescuento->idTipoDescuento);
 		return $this->executeUpdate($sqlQuery);

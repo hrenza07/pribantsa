@@ -13,8 +13,8 @@ class ConnectionFactory{
 	 * @return polaczenie
 	 */
 	static public function getConnection(){
-		$conn = mysqli_connect(ConnectionProperty::getHost(), ConnectionProperty::getUser(), ConnectionProperty::getPassword());
-		mysqli_select_db($conn, ConnectionProperty::getDatabase());
+		$conn = mysql_connect(ConnectionProperty::getHost(), ConnectionProperty::getUser(), ConnectionProperty::getPassword());
+		mysql_select_db(ConnectionProperty::getDatabase());
 		if(!$conn){
 			throw new Exception('could not connect to database');
 		}
@@ -27,7 +27,7 @@ class ConnectionFactory{
 	 * @param connection polaczenie do bazy
 	 */
 	static public function close($connection){
-		mysqli_close($connection);
+		mysql_close($connection);
 	}
 }
 ?>

@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_contrato'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblContratoMySqlDAO implements TblContratoDAO{
 
@@ -58,12 +58,31 @@ class TblContratoMySqlDAO implements TblContratoDAO{
  	 */
 	public function insert($tblContrato){
 		$sql = 'INSERT INTO tbl_contrato (fecha_inicio, fecha_fin, tipo_contrato, id_empleado) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->fechaInicio)) || is_null($tblContrato->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->fechaFin)) || is_null($tblContrato->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->tipoContrato)) || is_null($tblContrato->tipoContrato))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->idEmpleado)) || is_null($tblContrato->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblContrato->fechaInicio);
-		$sqlQuery->set($tblContrato->fechaFin);
-		$sqlQuery->set($tblContrato->tipoContrato);
-		$sqlQuery->setNumber($tblContrato->idEmpleado);
+		if ((isset($tblContrato->fechaInicio)) && (!is_null($tblContrato->fechaInicio)))
+			$sqlQuery->set($tblContrato->fechaInicio);
+		if ((isset($tblContrato->fechaFin)) && (!is_null($tblContrato->fechaFin)))
+			$sqlQuery->set($tblContrato->fechaFin);
+		if ((isset($tblContrato->tipoContrato)) && (!is_null($tblContrato->tipoContrato)))
+			$sqlQuery->set($tblContrato->tipoContrato);
+		if ((isset($tblContrato->idEmpleado)) && (!is_null($tblContrato->idEmpleado)))
+			$sqlQuery->setNumber($tblContrato->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblContrato->idContrato = $id;
@@ -77,12 +96,31 @@ class TblContratoMySqlDAO implements TblContratoDAO{
  	 */
 	public function update($tblContrato){
 		$sql = 'UPDATE tbl_contrato SET fecha_inicio = ?, fecha_fin = ?, tipo_contrato = ?, id_empleado = ? WHERE id_contrato = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->fechaInicio)) || is_null($tblContrato->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->fechaFin)) || is_null($tblContrato->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->tipoContrato)) || is_null($tblContrato->tipoContrato))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblContrato->idEmpleado)) || is_null($tblContrato->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblContrato->fechaInicio);
-		$sqlQuery->set($tblContrato->fechaFin);
-		$sqlQuery->set($tblContrato->tipoContrato);
-		$sqlQuery->setNumber($tblContrato->idEmpleado);
+		if ((isset($tblContrato->fechaInicio)) && (!is_null($tblContrato->fechaInicio)))
+			$sqlQuery->set($tblContrato->fechaInicio);
+		if ((isset($tblContrato->fechaFin)) && (!is_null($tblContrato->fechaFin)))
+			$sqlQuery->set($tblContrato->fechaFin);
+		if ((isset($tblContrato->tipoContrato)) && (!is_null($tblContrato->tipoContrato)))
+			$sqlQuery->set($tblContrato->tipoContrato);
+		if ((isset($tblContrato->idEmpleado)) && (!is_null($tblContrato->idEmpleado)))
+			$sqlQuery->setNumber($tblContrato->idEmpleado);
 
 		$sqlQuery->setNumber($tblContrato->idContrato);
 		return $this->executeUpdate($sqlQuery);

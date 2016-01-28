@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_tipo_bono'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblTipoBonoMySqlDAO implements TblTipoBonoDAO{
 
@@ -58,12 +58,31 @@ class TblTipoBonoMySqlDAO implements TblTipoBonoDAO{
  	 */
 	public function insert($tblTipoBono){
 		$sql = 'INSERT INTO tbl_tipo_bono (id_puesto_trabajo, monto, porcentaje, nombre) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->idPuestoTrabajo)) || is_null($tblTipoBono->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->monto)) || is_null($tblTipoBono->monto))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->porcentaje)) || is_null($tblTipoBono->porcentaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->nombre)) || is_null($tblTipoBono->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblTipoBono->idPuestoTrabajo);
-		$sqlQuery->set($tblTipoBono->monto);
-		$sqlQuery->set($tblTipoBono->porcentaje);
-		$sqlQuery->set($tblTipoBono->nombre);
+		if ((isset($tblTipoBono->idPuestoTrabajo)) && (!is_null($tblTipoBono->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblTipoBono->idPuestoTrabajo);
+		if ((isset($tblTipoBono->monto)) && (!is_null($tblTipoBono->monto)))
+			$sqlQuery->set($tblTipoBono->monto);
+		if ((isset($tblTipoBono->porcentaje)) && (!is_null($tblTipoBono->porcentaje)))
+			$sqlQuery->set($tblTipoBono->porcentaje);
+		if ((isset($tblTipoBono->nombre)) && (!is_null($tblTipoBono->nombre)))
+			$sqlQuery->set($tblTipoBono->nombre);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblTipoBono->idTipoBono = $id;
@@ -77,12 +96,31 @@ class TblTipoBonoMySqlDAO implements TblTipoBonoDAO{
  	 */
 	public function update($tblTipoBono){
 		$sql = 'UPDATE tbl_tipo_bono SET id_puesto_trabajo = ?, monto = ?, porcentaje = ?, nombre = ? WHERE id_tipo_bono = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->idPuestoTrabajo)) || is_null($tblTipoBono->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->monto)) || is_null($tblTipoBono->monto))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->porcentaje)) || is_null($tblTipoBono->porcentaje))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblTipoBono->nombre)) || is_null($tblTipoBono->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblTipoBono->idPuestoTrabajo);
-		$sqlQuery->set($tblTipoBono->monto);
-		$sqlQuery->set($tblTipoBono->porcentaje);
-		$sqlQuery->set($tblTipoBono->nombre);
+		if ((isset($tblTipoBono->idPuestoTrabajo)) && (!is_null($tblTipoBono->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblTipoBono->idPuestoTrabajo);
+		if ((isset($tblTipoBono->monto)) && (!is_null($tblTipoBono->monto)))
+			$sqlQuery->set($tblTipoBono->monto);
+		if ((isset($tblTipoBono->porcentaje)) && (!is_null($tblTipoBono->porcentaje)))
+			$sqlQuery->set($tblTipoBono->porcentaje);
+		if ((isset($tblTipoBono->nombre)) && (!is_null($tblTipoBono->nombre)))
+			$sqlQuery->set($tblTipoBono->nombre);
 
 		$sqlQuery->setNumber($tblTipoBono->idTipoBono);
 		return $this->executeUpdate($sqlQuery);

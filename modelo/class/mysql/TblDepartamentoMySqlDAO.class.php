@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_departamento'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblDepartamentoMySqlDAO implements TblDepartamentoDAO{
 
@@ -58,10 +58,21 @@ class TblDepartamentoMySqlDAO implements TblDepartamentoDAO{
  	 */
 	public function insert($tblDepartamento){
 		$sql = 'INSERT INTO tbl_departamento (nombre, descripcion) VALUES (?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDepartamento->nombre)) || is_null($tblDepartamento->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDepartamento->descripcion)) || is_null($tblDepartamento->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblDepartamento->nombre);
-		$sqlQuery->set($tblDepartamento->descripcion);
+		if ((isset($tblDepartamento->nombre)) && (!is_null($tblDepartamento->nombre)))
+			$sqlQuery->set($tblDepartamento->nombre);
+		if ((isset($tblDepartamento->descripcion)) && (!is_null($tblDepartamento->descripcion)))
+			$sqlQuery->set($tblDepartamento->descripcion);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblDepartamento->idDepartamento = $id;
@@ -75,10 +86,21 @@ class TblDepartamentoMySqlDAO implements TblDepartamentoDAO{
  	 */
 	public function update($tblDepartamento){
 		$sql = 'UPDATE tbl_departamento SET nombre = ?, descripcion = ? WHERE id_departamento = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDepartamento->nombre)) || is_null($tblDepartamento->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblDepartamento->descripcion)) || is_null($tblDepartamento->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblDepartamento->nombre);
-		$sqlQuery->set($tblDepartamento->descripcion);
+		if ((isset($tblDepartamento->nombre)) && (!is_null($tblDepartamento->nombre)))
+			$sqlQuery->set($tblDepartamento->nombre);
+		if ((isset($tblDepartamento->descripcion)) && (!is_null($tblDepartamento->descripcion)))
+			$sqlQuery->set($tblDepartamento->descripcion);
 
 		$sqlQuery->setNumber($tblDepartamento->idDepartamento);
 		return $this->executeUpdate($sqlQuery);

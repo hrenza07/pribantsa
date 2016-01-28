@@ -3,7 +3,7 @@
 	 * Object represents table 'tbl_descuento'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2016-01-17 21:09	 
+     	 * @date: 2016-01-27 22:07	 
 	 */
 	class TblDescuento{
 		

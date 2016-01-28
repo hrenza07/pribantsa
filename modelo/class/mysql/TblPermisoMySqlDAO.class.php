@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_permiso'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblPermisoMySqlDAO implements TblPermisoDAO{
 
@@ -58,13 +58,36 @@ class TblPermisoMySqlDAO implements TblPermisoDAO{
  	 */
 	public function insert($tblPermiso){
 		$sql = 'INSERT INTO tbl_permiso (remunerado, inicio, fin, tipo_permiso, id_empleado) VALUES (?, ?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->remunerado)) || is_null($tblPermiso->remunerado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->inicio)) || is_null($tblPermiso->inicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->fin)) || is_null($tblPermiso->fin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->tipoPermiso)) || is_null($tblPermiso->tipoPermiso))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->idEmpleado)) || is_null($tblPermiso->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPermiso->remunerado);
-		$sqlQuery->set($tblPermiso->inicio);
-		$sqlQuery->set($tblPermiso->fin);
-		$sqlQuery->set($tblPermiso->tipoPermiso);
-		$sqlQuery->setNumber($tblPermiso->idEmpleado);
+		if ((isset($tblPermiso->remunerado)) && (!is_null($tblPermiso->remunerado)))
+			$sqlQuery->setNumber($tblPermiso->remunerado);
+		if ((isset($tblPermiso->inicio)) && (!is_null($tblPermiso->inicio)))
+			$sqlQuery->set($tblPermiso->inicio);
+		if ((isset($tblPermiso->fin)) && (!is_null($tblPermiso->fin)))
+			$sqlQuery->set($tblPermiso->fin);
+		if ((isset($tblPermiso->tipoPermiso)) && (!is_null($tblPermiso->tipoPermiso)))
+			$sqlQuery->set($tblPermiso->tipoPermiso);
+		if ((isset($tblPermiso->idEmpleado)) && (!is_null($tblPermiso->idEmpleado)))
+			$sqlQuery->setNumber($tblPermiso->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblPermiso->idPermiso = $id;
@@ -78,13 +101,36 @@ class TblPermisoMySqlDAO implements TblPermisoDAO{
  	 */
 	public function update($tblPermiso){
 		$sql = 'UPDATE tbl_permiso SET remunerado = ?, inicio = ?, fin = ?, tipo_permiso = ?, id_empleado = ? WHERE id_permiso = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->remunerado)) || is_null($tblPermiso->remunerado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->inicio)) || is_null($tblPermiso->inicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->fin)) || is_null($tblPermiso->fin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->tipoPermiso)) || is_null($tblPermiso->tipoPermiso))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPermiso->idEmpleado)) || is_null($tblPermiso->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($tblPermiso->remunerado);
-		$sqlQuery->set($tblPermiso->inicio);
-		$sqlQuery->set($tblPermiso->fin);
-		$sqlQuery->set($tblPermiso->tipoPermiso);
-		$sqlQuery->setNumber($tblPermiso->idEmpleado);
+		if ((isset($tblPermiso->remunerado)) && (!is_null($tblPermiso->remunerado)))
+			$sqlQuery->setNumber($tblPermiso->remunerado);
+		if ((isset($tblPermiso->inicio)) && (!is_null($tblPermiso->inicio)))
+			$sqlQuery->set($tblPermiso->inicio);
+		if ((isset($tblPermiso->fin)) && (!is_null($tblPermiso->fin)))
+			$sqlQuery->set($tblPermiso->fin);
+		if ((isset($tblPermiso->tipoPermiso)) && (!is_null($tblPermiso->tipoPermiso)))
+			$sqlQuery->set($tblPermiso->tipoPermiso);
+		if ((isset($tblPermiso->idEmpleado)) && (!is_null($tblPermiso->idEmpleado)))
+			$sqlQuery->setNumber($tblPermiso->idEmpleado);
 
 		$sqlQuery->setNumber($tblPermiso->idPermiso);
 		return $this->executeUpdate($sqlQuery);

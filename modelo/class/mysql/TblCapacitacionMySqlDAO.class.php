@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_capacitacion'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblCapacitacionMySqlDAO implements TblCapacitacionDAO{
 
@@ -58,14 +58,41 @@ class TblCapacitacionMySqlDAO implements TblCapacitacionDAO{
  	 */
 	public function insert($tblCapacitacion){
 		$sql = 'INSERT INTO tbl_capacitacion (nombre, descripcion, lugar, fecha_inicio, fecha_fin, id_empleado) VALUES (?, ?, ?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->nombre)) || is_null($tblCapacitacion->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->descripcion)) || is_null($tblCapacitacion->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->lugar)) || is_null($tblCapacitacion->lugar))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->fechaInicio)) || is_null($tblCapacitacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->fechaFin)) || is_null($tblCapacitacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->idEmpleado)) || is_null($tblCapacitacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblCapacitacion->nombre);
-		$sqlQuery->set($tblCapacitacion->descripcion);
-		$sqlQuery->set($tblCapacitacion->lugar);
-		$sqlQuery->set($tblCapacitacion->fechaInicio);
-		$sqlQuery->set($tblCapacitacion->fechaFin);
-		$sqlQuery->setNumber($tblCapacitacion->idEmpleado);
+		if ((isset($tblCapacitacion->nombre)) && (!is_null($tblCapacitacion->nombre)))
+			$sqlQuery->set($tblCapacitacion->nombre);
+		if ((isset($tblCapacitacion->descripcion)) && (!is_null($tblCapacitacion->descripcion)))
+			$sqlQuery->set($tblCapacitacion->descripcion);
+		if ((isset($tblCapacitacion->lugar)) && (!is_null($tblCapacitacion->lugar)))
+			$sqlQuery->set($tblCapacitacion->lugar);
+		if ((isset($tblCapacitacion->fechaInicio)) && (!is_null($tblCapacitacion->fechaInicio)))
+			$sqlQuery->set($tblCapacitacion->fechaInicio);
+		if ((isset($tblCapacitacion->fechaFin)) && (!is_null($tblCapacitacion->fechaFin)))
+			$sqlQuery->set($tblCapacitacion->fechaFin);
+		if ((isset($tblCapacitacion->idEmpleado)) && (!is_null($tblCapacitacion->idEmpleado)))
+			$sqlQuery->setNumber($tblCapacitacion->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblCapacitacion->idCapacitacion = $id;
@@ -79,14 +106,41 @@ class TblCapacitacionMySqlDAO implements TblCapacitacionDAO{
  	 */
 	public function update($tblCapacitacion){
 		$sql = 'UPDATE tbl_capacitacion SET nombre = ?, descripcion = ?, lugar = ?, fecha_inicio = ?, fecha_fin = ?, id_empleado = ? WHERE id_capacitacion = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->nombre)) || is_null($tblCapacitacion->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->descripcion)) || is_null($tblCapacitacion->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->lugar)) || is_null($tblCapacitacion->lugar))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->fechaInicio)) || is_null($tblCapacitacion->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->fechaFin)) || is_null($tblCapacitacion->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCapacitacion->idEmpleado)) || is_null($tblCapacitacion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblCapacitacion->nombre);
-		$sqlQuery->set($tblCapacitacion->descripcion);
-		$sqlQuery->set($tblCapacitacion->lugar);
-		$sqlQuery->set($tblCapacitacion->fechaInicio);
-		$sqlQuery->set($tblCapacitacion->fechaFin);
-		$sqlQuery->setNumber($tblCapacitacion->idEmpleado);
+		if ((isset($tblCapacitacion->nombre)) && (!is_null($tblCapacitacion->nombre)))
+			$sqlQuery->set($tblCapacitacion->nombre);
+		if ((isset($tblCapacitacion->descripcion)) && (!is_null($tblCapacitacion->descripcion)))
+			$sqlQuery->set($tblCapacitacion->descripcion);
+		if ((isset($tblCapacitacion->lugar)) && (!is_null($tblCapacitacion->lugar)))
+			$sqlQuery->set($tblCapacitacion->lugar);
+		if ((isset($tblCapacitacion->fechaInicio)) && (!is_null($tblCapacitacion->fechaInicio)))
+			$sqlQuery->set($tblCapacitacion->fechaInicio);
+		if ((isset($tblCapacitacion->fechaFin)) && (!is_null($tblCapacitacion->fechaFin)))
+			$sqlQuery->set($tblCapacitacion->fechaFin);
+		if ((isset($tblCapacitacion->idEmpleado)) && (!is_null($tblCapacitacion->idEmpleado)))
+			$sqlQuery->setNumber($tblCapacitacion->idEmpleado);
 
 		$sqlQuery->setNumber($tblCapacitacion->idCapacitacion);
 		return $this->executeUpdate($sqlQuery);

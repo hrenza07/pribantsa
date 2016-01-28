@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_criterio'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblCriterioMySqlDAO implements TblCriterioDAO{
 
@@ -58,11 +58,26 @@ class TblCriterioMySqlDAO implements TblCriterioDAO{
  	 */
 	public function insert($tblCriterio){
 		$sql = 'INSERT INTO tbl_criterio (descripcion, peso, id_puesto_trabajo) VALUES (?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->descripcion)) || is_null($tblCriterio->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->peso)) || is_null($tblCriterio->peso))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->idPuestoTrabajo)) || is_null($tblCriterio->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblCriterio->descripcion);
-		$sqlQuery->set($tblCriterio->peso);
-		$sqlQuery->setNumber($tblCriterio->idPuestoTrabajo);
+		if ((isset($tblCriterio->descripcion)) && (!is_null($tblCriterio->descripcion)))
+			$sqlQuery->set($tblCriterio->descripcion);
+		if ((isset($tblCriterio->peso)) && (!is_null($tblCriterio->peso)))
+			$sqlQuery->set($tblCriterio->peso);
+		if ((isset($tblCriterio->idPuestoTrabajo)) && (!is_null($tblCriterio->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblCriterio->idPuestoTrabajo);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblCriterio->idCriterio = $id;
@@ -76,11 +91,26 @@ class TblCriterioMySqlDAO implements TblCriterioDAO{
  	 */
 	public function update($tblCriterio){
 		$sql = 'UPDATE tbl_criterio SET descripcion = ?, peso = ?, id_puesto_trabajo = ? WHERE id_criterio = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->descripcion)) || is_null($tblCriterio->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->peso)) || is_null($tblCriterio->peso))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblCriterio->idPuestoTrabajo)) || is_null($tblCriterio->idPuestoTrabajo))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblCriterio->descripcion);
-		$sqlQuery->set($tblCriterio->peso);
-		$sqlQuery->setNumber($tblCriterio->idPuestoTrabajo);
+		if ((isset($tblCriterio->descripcion)) && (!is_null($tblCriterio->descripcion)))
+			$sqlQuery->set($tblCriterio->descripcion);
+		if ((isset($tblCriterio->peso)) && (!is_null($tblCriterio->peso)))
+			$sqlQuery->set($tblCriterio->peso);
+		if ((isset($tblCriterio->idPuestoTrabajo)) && (!is_null($tblCriterio->idPuestoTrabajo)))
+			$sqlQuery->setNumber($tblCriterio->idPuestoTrabajo);
 
 		$sqlQuery->setNumber($tblCriterio->idCriterio);
 		return $this->executeUpdate($sqlQuery);

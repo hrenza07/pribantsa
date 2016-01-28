@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_planilla'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblPlanillaMySqlDAO implements TblPlanillaDAO{
 
@@ -58,20 +58,71 @@ class TblPlanillaMySqlDAO implements TblPlanillaDAO{
  	 */
 	public function insert($tblPlanilla){
 		$sql = 'INSERT INTO tbl_planilla (fecha_inicio, fecha_fin, planilla, dias_trabajados, horas, extras_diurnas, extras_nocturnas, feriado, ajuste, total_descuento, salario_devengado, id_empleado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->fechaInicio)) || is_null($tblPlanilla->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->fechaFin)) || is_null($tblPlanilla->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->planilla)) || is_null($tblPlanilla->planilla))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->diasTrabajados)) || is_null($tblPlanilla->diasTrabajados))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->horas)) || is_null($tblPlanilla->horas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->extrasDiurnas)) || is_null($tblPlanilla->extrasDiurnas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->extrasNocturnas)) || is_null($tblPlanilla->extrasNocturnas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->feriado)) || is_null($tblPlanilla->feriado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->ajuste)) || is_null($tblPlanilla->ajuste))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->totalDescuento)) || is_null($tblPlanilla->totalDescuento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->salarioDevengado)) || is_null($tblPlanilla->salarioDevengado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->idEmpleado)) || is_null($tblPlanilla->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblPlanilla->fechaInicio);
-		$sqlQuery->set($tblPlanilla->fechaFin);
-		$sqlQuery->set($tblPlanilla->planilla);
-		$sqlQuery->set($tblPlanilla->diasTrabajados);
-		$sqlQuery->set($tblPlanilla->horas);
-		$sqlQuery->set($tblPlanilla->extrasDiurnas);
-		$sqlQuery->set($tblPlanilla->extrasNocturnas);
-		$sqlQuery->set($tblPlanilla->feriado);
-		$sqlQuery->set($tblPlanilla->ajuste);
-		$sqlQuery->set($tblPlanilla->totalDescuento);
-		$sqlQuery->set($tblPlanilla->salarioDevengado);
-		$sqlQuery->setNumber($tblPlanilla->idEmpleado);
+		if ((isset($tblPlanilla->fechaInicio)) && (!is_null($tblPlanilla->fechaInicio)))
+			$sqlQuery->set($tblPlanilla->fechaInicio);
+		if ((isset($tblPlanilla->fechaFin)) && (!is_null($tblPlanilla->fechaFin)))
+			$sqlQuery->set($tblPlanilla->fechaFin);
+		if ((isset($tblPlanilla->planilla)) && (!is_null($tblPlanilla->planilla)))
+			$sqlQuery->set($tblPlanilla->planilla);
+		if ((isset($tblPlanilla->diasTrabajados)) && (!is_null($tblPlanilla->diasTrabajados)))
+			$sqlQuery->set($tblPlanilla->diasTrabajados);
+		if ((isset($tblPlanilla->horas)) && (!is_null($tblPlanilla->horas)))
+			$sqlQuery->set($tblPlanilla->horas);
+		if ((isset($tblPlanilla->extrasDiurnas)) && (!is_null($tblPlanilla->extrasDiurnas)))
+			$sqlQuery->set($tblPlanilla->extrasDiurnas);
+		if ((isset($tblPlanilla->extrasNocturnas)) && (!is_null($tblPlanilla->extrasNocturnas)))
+			$sqlQuery->set($tblPlanilla->extrasNocturnas);
+		if ((isset($tblPlanilla->feriado)) && (!is_null($tblPlanilla->feriado)))
+			$sqlQuery->set($tblPlanilla->feriado);
+		if ((isset($tblPlanilla->ajuste)) && (!is_null($tblPlanilla->ajuste)))
+			$sqlQuery->set($tblPlanilla->ajuste);
+		if ((isset($tblPlanilla->totalDescuento)) && (!is_null($tblPlanilla->totalDescuento)))
+			$sqlQuery->set($tblPlanilla->totalDescuento);
+		if ((isset($tblPlanilla->salarioDevengado)) && (!is_null($tblPlanilla->salarioDevengado)))
+			$sqlQuery->set($tblPlanilla->salarioDevengado);
+		if ((isset($tblPlanilla->idEmpleado)) && (!is_null($tblPlanilla->idEmpleado)))
+			$sqlQuery->setNumber($tblPlanilla->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblPlanilla->idPlanilla = $id;
@@ -85,20 +136,71 @@ class TblPlanillaMySqlDAO implements TblPlanillaDAO{
  	 */
 	public function update($tblPlanilla){
 		$sql = 'UPDATE tbl_planilla SET fecha_inicio = ?, fecha_fin = ?, planilla = ?, dias_trabajados = ?, horas = ?, extras_diurnas = ?, extras_nocturnas = ?, feriado = ?, ajuste = ?, total_descuento = ?, salario_devengado = ?, id_empleado = ? WHERE id_planilla = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->fechaInicio)) || is_null($tblPlanilla->fechaInicio))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->fechaFin)) || is_null($tblPlanilla->fechaFin))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->planilla)) || is_null($tblPlanilla->planilla))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->diasTrabajados)) || is_null($tblPlanilla->diasTrabajados))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->horas)) || is_null($tblPlanilla->horas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->extrasDiurnas)) || is_null($tblPlanilla->extrasDiurnas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->extrasNocturnas)) || is_null($tblPlanilla->extrasNocturnas))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->feriado)) || is_null($tblPlanilla->feriado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->ajuste)) || is_null($tblPlanilla->ajuste))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->totalDescuento)) || is_null($tblPlanilla->totalDescuento))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->salarioDevengado)) || is_null($tblPlanilla->salarioDevengado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblPlanilla->idEmpleado)) || is_null($tblPlanilla->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblPlanilla->fechaInicio);
-		$sqlQuery->set($tblPlanilla->fechaFin);
-		$sqlQuery->set($tblPlanilla->planilla);
-		$sqlQuery->set($tblPlanilla->diasTrabajados);
-		$sqlQuery->set($tblPlanilla->horas);
-		$sqlQuery->set($tblPlanilla->extrasDiurnas);
-		$sqlQuery->set($tblPlanilla->extrasNocturnas);
-		$sqlQuery->set($tblPlanilla->feriado);
-		$sqlQuery->set($tblPlanilla->ajuste);
-		$sqlQuery->set($tblPlanilla->totalDescuento);
-		$sqlQuery->set($tblPlanilla->salarioDevengado);
-		$sqlQuery->setNumber($tblPlanilla->idEmpleado);
+		if ((isset($tblPlanilla->fechaInicio)) && (!is_null($tblPlanilla->fechaInicio)))
+			$sqlQuery->set($tblPlanilla->fechaInicio);
+		if ((isset($tblPlanilla->fechaFin)) && (!is_null($tblPlanilla->fechaFin)))
+			$sqlQuery->set($tblPlanilla->fechaFin);
+		if ((isset($tblPlanilla->planilla)) && (!is_null($tblPlanilla->planilla)))
+			$sqlQuery->set($tblPlanilla->planilla);
+		if ((isset($tblPlanilla->diasTrabajados)) && (!is_null($tblPlanilla->diasTrabajados)))
+			$sqlQuery->set($tblPlanilla->diasTrabajados);
+		if ((isset($tblPlanilla->horas)) && (!is_null($tblPlanilla->horas)))
+			$sqlQuery->set($tblPlanilla->horas);
+		if ((isset($tblPlanilla->extrasDiurnas)) && (!is_null($tblPlanilla->extrasDiurnas)))
+			$sqlQuery->set($tblPlanilla->extrasDiurnas);
+		if ((isset($tblPlanilla->extrasNocturnas)) && (!is_null($tblPlanilla->extrasNocturnas)))
+			$sqlQuery->set($tblPlanilla->extrasNocturnas);
+		if ((isset($tblPlanilla->feriado)) && (!is_null($tblPlanilla->feriado)))
+			$sqlQuery->set($tblPlanilla->feriado);
+		if ((isset($tblPlanilla->ajuste)) && (!is_null($tblPlanilla->ajuste)))
+			$sqlQuery->set($tblPlanilla->ajuste);
+		if ((isset($tblPlanilla->totalDescuento)) && (!is_null($tblPlanilla->totalDescuento)))
+			$sqlQuery->set($tblPlanilla->totalDescuento);
+		if ((isset($tblPlanilla->salarioDevengado)) && (!is_null($tblPlanilla->salarioDevengado)))
+			$sqlQuery->set($tblPlanilla->salarioDevengado);
+		if ((isset($tblPlanilla->idEmpleado)) && (!is_null($tblPlanilla->idEmpleado)))
+			$sqlQuery->setNumber($tblPlanilla->idEmpleado);
 
 		$sqlQuery->setNumber($tblPlanilla->idPlanilla);
 		return $this->executeUpdate($sqlQuery);

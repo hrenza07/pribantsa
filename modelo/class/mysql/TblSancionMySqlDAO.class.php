@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_sancion'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-17 21:09
+ * @date: 2016-01-27 22:07
  */
 class TblSancionMySqlDAO implements TblSancionDAO{
 
@@ -58,12 +58,31 @@ class TblSancionMySqlDAO implements TblSancionDAO{
  	 */
 	public function insert($tblSancion){
 		$sql = 'INSERT INTO tbl_sancion (gravedad, descripcion, fecha, id_empleado) VALUES (?, ?, ?, ?)';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->gravedad)) || is_null($tblSancion->gravedad))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->descripcion)) || is_null($tblSancion->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->fecha)) || is_null($tblSancion->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->idEmpleado)) || is_null($tblSancion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblSancion->gravedad);
-		$sqlQuery->set($tblSancion->descripcion);
-		$sqlQuery->set($tblSancion->fecha);
-		$sqlQuery->setNumber($tblSancion->idEmpleado);
+		if ((isset($tblSancion->gravedad)) && (!is_null($tblSancion->gravedad)))
+			$sqlQuery->set($tblSancion->gravedad);
+		if ((isset($tblSancion->descripcion)) && (!is_null($tblSancion->descripcion)))
+			$sqlQuery->set($tblSancion->descripcion);
+		if ((isset($tblSancion->fecha)) && (!is_null($tblSancion->fecha)))
+			$sqlQuery->set($tblSancion->fecha);
+		if ((isset($tblSancion->idEmpleado)) && (!is_null($tblSancion->idEmpleado)))
+			$sqlQuery->setNumber($tblSancion->idEmpleado);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblSancion->idSancion = $id;
@@ -77,12 +96,31 @@ class TblSancionMySqlDAO implements TblSancionDAO{
  	 */
 	public function update($tblSancion){
 		$sql = 'UPDATE tbl_sancion SET gravedad = ?, descripcion = ?, fecha = ?, id_empleado = ? WHERE id_sancion = ?';
+		$qpos = 0;
+		
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->gravedad)) || is_null($tblSancion->gravedad))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->descripcion)) || is_null($tblSancion->descripcion))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->fecha)) || is_null($tblSancion->fecha))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblSancion->idEmpleado)) || is_null($tblSancion->idEmpleado))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tblSancion->gravedad);
-		$sqlQuery->set($tblSancion->descripcion);
-		$sqlQuery->set($tblSancion->fecha);
-		$sqlQuery->setNumber($tblSancion->idEmpleado);
+		if ((isset($tblSancion->gravedad)) && (!is_null($tblSancion->gravedad)))
+			$sqlQuery->set($tblSancion->gravedad);
+		if ((isset($tblSancion->descripcion)) && (!is_null($tblSancion->descripcion)))
+			$sqlQuery->set($tblSancion->descripcion);
+		if ((isset($tblSancion->fecha)) && (!is_null($tblSancion->fecha)))
+			$sqlQuery->set($tblSancion->fecha);
+		if ((isset($tblSancion->idEmpleado)) && (!is_null($tblSancion->idEmpleado)))
+			$sqlQuery->setNumber($tblSancion->idEmpleado);
 
 		$sqlQuery->setNumber($tblSancion->idSancion);
 		return $this->executeUpdate($sqlQuery);

@@ -25,13 +25,7 @@ class SqlQuery{
 	 * @param String $value value set
 	 */
 	public function setString($value){
-        $transaction = Transaction::getCurrentTransaction();
-        if(!$transaction){
-            $connection = new Connection();
-        }else{
-            $connection = $transaction->getConnection();
-        }
-        $connection->escapestring($value);
+		$value = mysql_escape_string($value);
 		$this->params[$this->idx++] = "'".$value."'";
 	}
 	
@@ -41,13 +35,7 @@ class SqlQuery{
 	 * @param String $value value to set
 	 */
 	public function set($value){
-        $transaction = Transaction::getCurrentTransaction();
-        if(!$transaction){
-            $connection = new Connection();
-        }else{
-            $connection = $transaction->getConnection();           
-        }
-        $connection->escapestring($value);
+		$value = mysql_escape_string($value);
 		$this->params[$this->idx++] = "'".$value."'";
 	}
 	
