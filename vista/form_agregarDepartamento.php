@@ -1,3 +1,6 @@
+<?php
+ require_once('menu.php');
+?>
 <html>
 <head>
 </head>

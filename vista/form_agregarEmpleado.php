@@ -1,5 +1,13 @@
 <html>
 <head>
+  <link rel="stylesheet" href="../js/jquery/jquery-ui.css">
+  <script src="../js/jquery-1.10.2/jquery-1.9.1.js"></script>
+  <script src="../js/jquery/jquery-ui.js"></script>
+<script>
+    $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
 </head>
 <body>
 <h1>Agregar Empleado</h1>
@@ -31,7 +39,7 @@
 <td>Salario:</td><td><input type="text" name="salario_empleado"></td>
 </tr>
 <tr>
-<td>Fecha de Nacimiento:</td><td><input type="date" name="fechanacimiento_empleado"></td>
+<td>Fecha de Nacimiento:</td><td><input id="datepicker" type="text" name="fechanacimiento_empleado"></td>
 </tr>
 <tr>
 <td><input type="submit" value="Enviar"></td><td><input type="reset" value="Limpiar"></td>
