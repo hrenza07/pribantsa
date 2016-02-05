@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_usuario'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-01-27 22:07
+ * @date: 2016-02-03 20:25
  */
 class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 
@@ -29,6 +29,13 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		return $this->getList($sqlQuery);
 	}
 	
+        public function queryAllUsuarioContrasena($usuario,$contrasena){
+                $sql = 'SELECT * FROM tbl_usuario WHERE nombre ="'.$usuario.'" AND contrasena = "'.$contrasena.'"';
+                $sqlQuery = new SqlQuery($sql);
+                return $this->getList($sqlQuery);
+        }
+
+
 	/**
 	 * Get all records from table ordered by field
 	 *
@@ -57,7 +64,7 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
  	 * @param TblUsuarioMySql tblUsuario
  	 */
 	public function insert($tblUsuario){
-		$sql = 'INSERT INTO tbl_usuario (id_empleado, contrasena, privilegio) VALUES (?, ?, ?)';
+		$sql = 'INSERT INTO tbl_usuario (id_empleado, contrasena, privilegio, nombre) VALUES (?, ?, ?, ?)';
 		$qpos = 0;
 		
 		$qpos = strpos($sql, '?', $qpos + 1);
@@ -69,6 +76,9 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		$qpos = strpos($sql, '?', $qpos + 1);
 		if ((!isset($tblUsuario->privilegio)) || is_null($tblUsuario->privilegio))
 			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->nombre)) || is_null($tblUsuario->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
 
 		$sqlQuery = new SqlQuery($sql);
 		
@@ -78,6 +88,8 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 			$sqlQuery->set($tblUsuario->contrasena);
 		if ((isset($tblUsuario->privilegio)) && (!is_null($tblUsuario->privilegio)))
 			$sqlQuery->setNumber($tblUsuario->privilegio);
+		if ((isset($tblUsuario->nombre)) && (!is_null($tblUsuario->nombre)))
+			$sqlQuery->set($tblUsuario->nombre);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tblUsuario->idUsuario = $id;
@@ -90,7 +102,7 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
  	 * @param TblUsuarioMySql tblUsuario
  	 */
 	public function update($tblUsuario){
-		$sql = 'UPDATE tbl_usuario SET id_empleado = ?, contrasena = ?, privilegio = ? WHERE id_usuario = ?';
+		$sql = 'UPDATE tbl_usuario SET id_empleado = ?, contrasena = ?, privilegio = ?, nombre = ? WHERE id_usuario = ?';
 		$qpos = 0;
 		
 		$qpos = strpos($sql, '?', $qpos + 1);
@@ -102,6 +114,9 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		$qpos = strpos($sql, '?', $qpos + 1);
 		if ((!isset($tblUsuario->privilegio)) || is_null($tblUsuario->privilegio))
 			$sql = substr_replace($sql, 'NULL', $qpos, 1);
+		$qpos = strpos($sql, '?', $qpos + 1);
+		if ((!isset($tblUsuario->nombre)) || is_null($tblUsuario->nombre))
+			$sql = substr_replace($sql, 'NULL', $qpos, 1);
 
 		$sqlQuery = new SqlQuery($sql);
 		
@@ -111,6 +126,8 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 			$sqlQuery->set($tblUsuario->contrasena);
 		if ((isset($tblUsuario->privilegio)) && (!is_null($tblUsuario->privilegio)))
 			$sqlQuery->setNumber($tblUsuario->privilegio);
+		if ((isset($tblUsuario->nombre)) && (!is_null($tblUsuario->nombre)))
+			$sqlQuery->set($tblUsuario->nombre);
 
 		$sqlQuery->setNumber($tblUsuario->idUsuario);
 		return $this->executeUpdate($sqlQuery);
@@ -146,6 +163,13 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByNombre($value){
+		$sql = 'SELECT * FROM tbl_usuario WHERE nombre = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->getList($sqlQuery);
+	}
+
 
 	public function deleteByIdEmpleado($value){
 		$sql = 'DELETE FROM tbl_usuario WHERE id_empleado = ?';
@@ -168,6 +192,13 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByNombre($value){
+		$sql = 'DELETE FROM tbl_usuario WHERE nombre = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 
 	
 	/**
@@ -182,6 +213,7 @@ class TblUsuarioMySqlDAO implements TblUsuarioDAO{
 		$tblUsuario->idEmpleado = $row['id_empleado'];
 		$tblUsuario->contrasena = $row['contrasena'];
 		$tblUsuario->privilegio = $row['privilegio'];
+		$tblUsuario->nombre = $row['nombre'];
 
 		return $tblUsuario;
 	}
