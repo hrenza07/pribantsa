@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2016-01-27 22:07
+ * @date: 2016-02-03 20:25
  */
 interface TblUsuarioDAO{
 
@@ -57,12 +57,16 @@ interface TblUsuarioDAO{
 
 	public function queryByPrivilegio($value);
 
+	public function queryByNombre($value);
+
 
 	public function deleteByIdEmpleado($value);
 
 	public function deleteByContrasena($value);
 
 	public function deleteByPrivilegio($value);
+
+	public function deleteByNombre($value);
 
 
 }
