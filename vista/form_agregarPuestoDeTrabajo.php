@@ -1,27 +1,35 @@
 <html>
 <head>
-</head>
+    <link rel="stylesheet" href="formularios.css">
+</head>    
 <body>
-<h1>Agregar Puesto de Trabajo</h1>
-<table>
-<form method="post" action="../controlador/agregarPuestoDeTrabajo.php">
-<tr>
-<td>Nombre:</td><td><input type="text" name="nombre_puestodetrabajo"></td>
-</tr>
-<tr>
-<td>Salario Minimo:</td><td><input type="text" name="salarioMin_puestodetrabajo"></td>
-</tr>
-<tr>
-<td>Salario Maximo:</td><td><input type="text" name="salarioMax_puestodetrabajo"></td>
-</tr>
-<tr>
-<td>Descripcion:</td><td><textarea name="descripcion_puestodetrabajo">
-</textarea></td>
-</tr>
-<tr>
-<td><input type="submit" value="Enviar"></td><td><input type="reset" value="Limpiar"></td>
-</tr>
+<div id="content">
+<form method="post" action="../controlador/agregarPuestoTrabjo.php" class="formularios">
+  <ul>
+    <li>
+         <h2>Datos Generales del Puesto de Trabajo</h2>
+    </li>
+    <li>
+         <label for="nombre_puestoTrabajo" class ="labelNormal">Nombre:</label>
+         <input type="text" name="nombre_puestoTrabjo" />
+    </li>
+     <li>
+         <label for="salarioMin_puestoTrabajo" class ="labelNormal">Salario Minimo($):</label>
+         <input type="text" name="salarioMin_puestoTrabjo" />
+    </li>
+     <li>
+         <label for="salarioMax_puestoTrabajo" class ="labelNormal">Salario Maximo($):</label>
+         <input type="text" name="salarioMax_puestoTrabjo" />
+    </li>
+    <li>
+        <label for="descripcion_puestoTrabajo" class ="labelNormal">Descripcion:</label>
+        <textarea name="descripcion_puestoTrabajo" cols="40" rows="6"></textarea>
+    </li>
+    <li>
+    <button class="submit" type="submit" value="enviar">Guardar</button>
+    </li>
+</ul>
 </form>
-</table>
+</div>
 </body>
 </html>
