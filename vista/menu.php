@@ -23,6 +23,14 @@
 			<li><a href='#'><span>Evaluacion Personal</span></a></li>
 			<li><a href='#'><span>Planilla</span></a></li>
 			<li><a href='#'><span>Opciones</span></a></li>
+			<li class='has-sub'><a href='#'><span>Administraci&oacute;n</span></a>
+				<ul>
+					<li><a href='form_agregarDepartamento.php'><span>Agregar Departamento</span></a></li>
+					<li><a href='form_agregarPuestoTrabajo.php'><span>Agregar Puesto</span></a></li>
+					<li><a href='form_agregarEmpleado.php'><span>Agregar Empleado</span></a></li>
+					<li><a href='form_agregarUsuario.php'><span>Agregar Usuario</span></a></li>
+				</ul>
+		    </li>
 </ul>
 </div>
 

@@ -3,7 +3,7 @@
  * Class that operate on table 'tbl_tipo_descuento'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2016-02-03 20:25
+ * @date: 2016-02-15 22:31
  */
 class TblTipoDescuentoMySqlDAO implements TblTipoDescuentoDAO{
 
