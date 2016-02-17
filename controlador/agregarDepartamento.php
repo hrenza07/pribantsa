@@ -11,4 +11,5 @@ $departamento->descripcion = $_POST['descripcion_departamento'];
 DAOFactory::getTblDepartamentoDAO()->insert($departamento);
 $transaction->commit();
 echo 'Departamento agregado con exito';
+header("Location: ../vista/menu.php");
 ?>
