@@ -1,24 +1,39 @@
 <html>
 <head>
-</head>
+    <link rel="stylesheet" href="formularios.css">
+    <link rel="stylesheet" href="../js/jquery/jquery-ui.css">
+  <script src="../js/jquery-1.10.2/jquery-1.9.1.js"></script>
+  <script src="../js/jquery/jquery-ui.js"></script>
+  <script>
+    $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+</head>    
 <body>
-<h1>Agregar Sancion a Empleado</h1>
-<table>
-<form method="post" action="../controlador/agregarSancion.php">
-<tr>
-<td>Gravedad:</td><td><input type="text" name="nombre_capacitacion"></td>
-</tr>
-<tr>
-<td>Fecha de la Sancion:</td><td><input type="date" name="fechainicio_capacitacion"></td>
-</tr>
-<tr>
-<td>Descripcion:</td><td><textarea name="descripcion_capacitacion">
-</textarea></td>
-</tr>
-<tr>
-<td><input type="submit" value="Enviar"></td><td><input type="reset" value="Limpiar"></td>
-</tr>
+<div id="content">
+<form method="post" action="../controlador/agregarSancion.php" class="formularios">
+  <ul>
+    <li>
+         <h2>Sancion Empleados</h2>
+    </li>
+    <li>
+         <label for="gravedad_sancion" class ="labelNormal">Gravedad:</label>
+         <input type="text" name="gravedad_sancion" />
+    </li>
+     <li>
+         <label for="fecha_sancion" class ="labelNormal">Fecha de la Sancion:</label>
+         <input id="datepicker" type="text" name="fecha_sancion" />
+    </li>
+    <li>
+        <label for="descripcion_capacitacion" class ="labelNormal">Descripcion:</label>
+        <textarea name="descripcion_capacitacion" cols="40" rows="6"></textarea>
+    </li>
+    <li>
+    <button class="submit" type="submit" value="enviar">Guardar</button>
+    </li>
+</ul>
 </form>
-</table>
+</div>
 </body>
 </html>
