@@ -32,11 +32,11 @@
     </li>
      <li>
          <label for="salarioMin_puestoTrabajo" class ="labelNormal">Salario Minimo($):</label>
-         <input type="text" name="salarioMin_puestoTrabajo" />
+         <input type="number" step="any" name="salarioMin_puestoTrabajo" />
     </li>
      <li>
          <label for="salarioMax_puestoTrabajo" class ="labelNormal">Salario Maximo($):</label>
-         <input type="text" name="salarioMax_puestoTrabajo" />
+         <input type="number" step="any" name="salarioMax_puestoTrabajo" />
     </li>
     <li>
         <label for="descripcion_puestoTrabajo" class ="labelNormal">Descripcion:</label>

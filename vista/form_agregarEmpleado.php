@@ -1,6 +1,13 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ require_once('menu.php');
+ require_once('../modelo/include_dao.php');
+?>
 <html>
 <head>
   <link rel="stylesheet" href="../js/jquery/jquery-ui.css">
+  <link rel="stylesheet" href="formularios.css">
   <script src="../js/jquery-1.10.2/jquery-1.9.1.js"></script>
   <script src="../js/jquery/jquery-ui.js"></script>
 <script>
@@ -10,41 +17,34 @@
 </script>
 </head>
 <body>
-<h1>Agregar Empleado</h1>
-<table>
-<form method="post" action="../controlador/agregarEmpleado.php">
-<tr>
-<td>Nombres:</td><td><input type="text" name="nombre_empleado"></td>
-</tr>
-<tr>
-<td>Apellidos:</td><td><input type="text" name="apellido_empleado"></td>
-</tr>
-<tr>
-<td>Sexo:</td><td><input type="radio" name="sexo_empleado" value="Masculino">M
-                  <input type="radio" name="sexo_empleado" value="Femenino" checked>F</td>
-</tr>
-<tr>
-<td>DUI:</td><td><input type="text" name="dui_empleado"></td>
-</tr>
-<tr>
-<td>ISSS:</td><td><input type="text" name="isss_empleado"></td>
-</tr>
-<tr>
-<td>AFP:</td><td><input type="text" name="afp_empleado"></td>
-</tr>
-<tr>
-<td>Numero de Cuenta:</td><td><input type="text" name="numerocuenta_empleado"></td>
-</tr>
-<tr>
-<td>Salario:</td><td><input type="text" name="salario_empleado"></td>
-</tr>
-<tr>
-<td>Fecha de Nacimiento:</td><td><input id="datepicker" type="text" name="fechanacimiento_empleado"></td>
-</tr>
-<tr>
-<td><input type="submit" value="Enviar"></td><td><input type="reset" value="Limpiar"></td>
-</tr>
+<div id="content">
+
+<form method="post" action="../controlador/agregarEmpleado.php" class="formularios">
+<ul>
+<h2>Agregar Empleado</h2>
+<li><label for="nombre_empleado" class="labelNormal">Nombres:</label><input type="text" name="nombre_empleado"></li>
+<li><label for="apellido_empleado" class="labelNormal">Apellidos:</label><input type="text" name="apellido_empleado"></li>
+<li><label for="sexo_empleado" class="labelNormal">Sexo:</label><input type="radio" name="sexo_empleado" value="Masculino">M
+               <input type="radio" name="sexo_empleado" value="Femenino" checked>F</li>
+<li><label for="dui_empleado" class="labelNormal">DUI:</label><input type="text" name="dui_empleado"></li>
+<li><label for="isss_empleado" class="labelNormal">ISSS:</label><input type="text" name="isss_empleado"></li>
+<li><label for="afp_empleado" class="labelNormal">AFP:</label><input type="text" name="afp_empleado"></li>
+<li><label for="cuenta_empleado" class="labelNormal">Numero de Cuenta:</label><input type="text" name="numerocuenta_empleado"></li>
+<li><label for="departamento_empleado" class="labelNormal">Departamento:</label>
+<select name="departamento" id="departamento">
+<?php 
+	$departamentos = DAOFactory::getTblDepartamentoDAO()->queryAll();
+	for ($i=0; $i < count($departamentos); $i++) { 
+		$row = $departamentos[$i];
+		echo '<option value="'.$row->idDepartamento.'">'.$row->nombre.'</option>';
+	}
+?>
+</select></li>
+<li><label for="salario_empleado" class="labelNormal">Salario:</label><input type="number" step="any" name="salario_empleado"></li></li>
+<li><label for="fecha_nacimiento_empleado" class="labelNormal">Fecha de Nacimiento:</label><input id="datepicker" type="text" name="fechanacimiento_empleado"></li>
+<li><button class="submit" type="submit" value="enviar">Guardar</button></li>
+</ul>
 </form>
-</table>
+</div>
 </body>
 </html>

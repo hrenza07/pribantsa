@@ -19,7 +19,7 @@ h2 {
  min-height: 20em; /* Alto del contenido */
  position: relative;
  width: 45%;
- z-index: 5;    
+ z-index: 0;    
  border-style: solid;
  border-top-width: 1px;
   border-left-width: 1px;
@@ -28,7 +28,7 @@ h2 {
 }
 
 .formularios ul {
-    width:612px;
+    width:512px;
     list-style-type:none;
     list-style-position:outside;
     margin:0px;
@@ -41,7 +41,7 @@ ul > :first-child {
 
 
 .formularios li{
-    padding:12px; 
+    padding:5px; 
     border-bottom:1px solid #eee;
     position:relative;
 }
