@@ -19,7 +19,7 @@ h2 {
  min-height: 20em; /* Alto del contenido */
  position: relative;
  width: 45%;
- z-index: 0;    
+ z-index: 1;    
  border-style: solid;
  border-top-width: 1px;
   border-left-width: 1px;

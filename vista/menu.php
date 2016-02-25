@@ -43,11 +43,9 @@
 </ul>
 </div>
 
-<div id='contenedor'>
-esto sera lo dinamico
-</div>
-
-
+<br>
+<br>
+<br>
 
 </body>
 <html>

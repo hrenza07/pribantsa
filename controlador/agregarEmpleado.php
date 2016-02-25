@@ -1,4 +1,6 @@
 <?php
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 	require_once('../modelo/include_dao.php');
 	$transaction = new Transaction();
 	$empleado = new TblEmpleado();
@@ -6,12 +8,24 @@
 	$empleado->apellido =$_POST['apellido_empleado'];
 	$empleado->sexoempleado = $_POST['sexo_empleado'];
 	$empleado->dui = $_POST['dui_empleado'];
+	$empleado->nit = $_POST['nit_empleado'];
 	$empleado->isss = $_POST['isss_empleado'];
 	$empleado->afp = $_POST['afp_empleado'];
 	$empleado->cuenta = $_POST['numerocuenta_empleado'];
 	$empleado->salario = $_POST['salario_empleado'];
-	$empleado->fechaNacimiento = $_POST['fechanacimiento_empleado'];
+	$fecha = $_POST['fechanacimiento_empleado'];
+	$fecha = date("Y-m-d", strtotime($fecha) );
+	$empleado->fechaNacimiento = $fecha;
+	$empleado->idPuestoTrabajo = $_POST['puesto_empleado'];
 	DAOFactory::getTblEmpleadoDAO()->insert($empleado);
+	$usuario = new TblUsuario();
+	$apellido1 = explode(" ", $empleado->apellido);
+	$fecha1 = explode("-", $fecha);
+	$usuario->usuario = strtoupper(substr($empleado->nombre, 0,1).$apellido1[0]).$fecha1[2];
+	$usuario->idEmpleado = $empleado->idEmpleado;
+	$usuario->contrasena = md5($usuario->usuario);
+	$usuario->privilegio = 5;
+	DAOFactory::getTblUsuarioDAO()->insert($usuario);
 	$transaction->commit();
 	echo 'Exito-'; 
 ?>
