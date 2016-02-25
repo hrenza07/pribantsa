@@ -1,3 +1,7 @@
+<html>
+<head>
+</head>
+<body>
 <?php
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
@@ -27,5 +31,18 @@
 	$usuario->privilegio = 5;
 	DAOFactory::getTblUsuarioDAO()->insert($usuario);
 	$transaction->commit();
-	echo 'Exito-'; 
+	echo '<script language="JavaScript" type="text/javascript">
+
+var pagina="../vista/form_agregarEmpleado.php";
+alert("Usuario:'.$usuario->usuario.'");
+function redireccionar() 
+{
+location.href=pagina
+} 
+setTimeout ("redireccionar()", 2000);
+
+</script>';
+//header('Location: ../vista/form_agregarEmpleado.php');
 ?>
+</body>
+</html>
