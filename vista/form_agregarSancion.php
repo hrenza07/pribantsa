@@ -1,3 +1,7 @@
+<?php
+    require_once('../modelo/include_dao.php');
+    require_once('menu.php');
+?>
 <html>
 <head>
     <link rel="stylesheet" href="formularios.css">
@@ -18,8 +22,20 @@
          <h2>Sancion Empleados</h2>
     </li>
     <li>
+         <label for="empleado_sancion" class ="labelNormal">Empleado:</label>
+         <select name="empleado_sancion">
+         <?php
+            $empleados = DAOFactory::getTblEmpleadoDAO()->queryAll();
+            for ($i=0; $i < count($empleados); $i++) { 
+                $fila = $empleados[$i];
+                echo '<option value="'.$fila->idEmpleado.'">'.$fila->apellido.', '.$fila->nombre.'</option>';
+            }
+         ?>
+         </select>
+    </li>
+    <li>
          <label for="gravedad_sancion" class ="labelNormal">Gravedad:</label>
-         <input type="text" name="gravedad_sancion" />
+         <input type="number" step="any" max="10" name="gravedad_sancion" />
     </li>
      <li>
          <label for="fecha_sancion" class ="labelNormal">Fecha de la Sancion:</label>
@@ -27,7 +43,7 @@
     </li>
     <li>
         <label for="descripcion_capacitacion" class ="labelNormal">Descripcion:</label>
-        <textarea name="descripcion_capacitacion" cols="40" rows="6"></textarea>
+        <textarea name="descripcion_sancion" cols="40" rows="6"></textarea>
     </li>
     <li>
     <button class="submit" type="submit" value="enviar">Guardar</button>

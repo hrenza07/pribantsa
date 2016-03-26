@@ -1,3 +1,7 @@
+<?php
+    require_once('../modelo/include_dao.php');
+    require_once('menu.php');
+?>
 <html>
 <head>
     <link rel="stylesheet" href="formularios.css">
@@ -17,6 +21,18 @@
   <ul>
     <li>
          <h2>Capacitacion de Empleados</h2>
+    </li>
+    <li>
+         <label for="empleado_capacitacion" class ="labelNormal">Empleado:</label>
+         <select name="empleado_capacitacion">
+         <?php
+            $empleados = DAOFactory::getTblEmpleadoDAO()->queryAll();
+            for ($i=0; $i < count($empleados); $i++) { 
+                $fila = $empleados[$i];
+                echo '<option value="'.$fila->idEmpleado.'">'.$fila->apellido.', '.$fila->nombre.'</option>';
+            }
+         ?>
+         </select>
     </li>
     <li>
          <label for="nombre_capacitacion" class ="labelNormal">Nombre:</label>

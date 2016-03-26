@@ -17,14 +17,14 @@
 </head>    
 <body>
 <div id="content">
-<form method="post" action="../controlador/agregarEducacion.php" class="formularios">
+<form method="post" action="../controlador/agregarReconocimiento.php" class="formularios">
   <ul>
     <li>
-         <h2>Educacion</h2>
+         <h2>Reconocimiento a Empleados</h2>
     </li>
     <li>
-         <label for="empleado_educacion" class ="labelNormal">Empleado:</label>
-         <select name="empleado_educacion">
+         <label for="empleado_reconocimiento" class ="labelNormal">Empleado:</label>
+         <select name="empleado_reconocimiento">
          <?php
             $empleados = DAOFactory::getTblEmpleadoDAO()->queryAll();
             for ($i=0; $i < count($empleados); $i++) { 
@@ -35,16 +35,8 @@
          </select>
     </li>
     <li>
-         <label for="titulo_educacion" class ="labelNormal">Titulo:</label>
-         <input type="text" name="titulo_educacion" />
-    </li>
-     <li>
-         <label for="fechainicio_educacion" class ="labelNormal">Fecha de inicio:</label>
-         <input id="datepicker" type="text" name="fecha_inicio_educacion" />
-    </li>
-     <li>
-         <label for="fechafin_educacion" class ="labelNormal">Fecha de Finalizacion:</label>
-         <input  id="datepicker_2" type="text" name="fecha_fin_educacion" />
+        <label for="descripcion_reconocimiento" class ="labelNormal">Descripcion:</label>
+        <textarea name="descripcion_reconocimiento" cols="40" rows="6"></textarea>
     </li>
     <li>
     <button class="submit" type="submit" value="enviar">Guardar</button>

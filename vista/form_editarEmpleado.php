@@ -41,8 +41,13 @@ function mostrarPuestos(str) {
 </head>
 <body>
 <div id="content">
-
-<form method="post" action="../controlador/agregarEmpleado.php" class="formularios">
+<?php 
+  for ($i=0; $i < 1000; $i++) { 
+    $empleado = DAOFactory::getTblEmpleadoDAO()->load($_GET[])
+  }
+  
+?>
+<form method="post" action="../controlador/editarEmpleado.php" class="formularios">
 <ul>
 <h2>Agregar Empleado</h2>
 <li><label for="nombre_empleado" class="labelNormal">Nombres:</label><input type="text" style="text-transform: uppercase" name="nombre_empleado"></li>
@@ -69,37 +74,7 @@ function mostrarPuestos(str) {
 <div id="txtHint"><br></div>
 </li>
 <li><label for="salario_empleado" class="labelNormal">Salario:</label><input type="number" step="any" name="salario_empleado"></li></li>
-<li><label for="fecha_nacimiento_empleado" class="labelNormal">Fecha de Nacimiento:</label>
-<select name="fecha_dia">
-<?php
-  for ($j=1; $j < 32; $j++) { 
-    echo '<option value='.$j.'>'.$j.'</option>';
-  }
-?>
-</select>
-
-<select name="fecha_mes">
-  <option value="1">Enero</option>
-  <option value="2">Febrero</option>
-  <option value="3">Marzo</option>
-  <option value="4">Abril</option>
-  <option value="5">Mayo</option>
-  <option value="6">Junio</option>
-  <option value="7">Julio</option>
-  <option value="8">Agosto</option>
-  <option value="9">Septiembre</option>
-  <option value="10">Octubre</option>
-  <option value="11">Noviembre</option>
-  <option value="12">Diciembre</option>
-</select>
-<select name="fecha_ano">
-<?php
-  for ($i=date("Y"); $i > 1900; $i--) { 
-    echo '<option value='.$i.'>'.$i.'</option>';
-  }
-?>
-</select>
-</li>
+<li><label for="fecha_nacimiento_empleado" class="labelNormal">Fecha de Nacimiento:</label><input id="datepicker" type="text" name="fechanacimiento_empleado"></li>
 <li><button class="submit" type="submit" value="enviar">Guardar</button></li>
 </ul>
 </form>

@@ -8,8 +8,8 @@
 	require_once('../modelo/include_dao.php');
 	$transaction = new Transaction();
 	$empleado = new TblEmpleado();
-	$empleado->nombre = $_POST['nombre_empleado'];
-	$empleado->apellido =$_POST['apellido_empleado'];
+	$empleado->nombre = strtoupper($_POST['nombre_empleado']);
+	$empleado->apellido = strtoupper($_POST['apellido_empleado']);
 	$empleado->sexoempleado = $_POST['sexo_empleado'];
 	$empleado->dui = $_POST['dui_empleado'];
 	$empleado->nit = $_POST['nit_empleado'];
@@ -17,8 +17,8 @@
 	$empleado->afp = $_POST['afp_empleado'];
 	$empleado->cuenta = $_POST['numerocuenta_empleado'];
 	$empleado->salario = $_POST['salario_empleado'];
-	$fecha = $_POST['fechanacimiento_empleado'];
-	$fecha = date("Y-m-d", strtotime($fecha) );
+	$fecha = $_POST['fecha_ano'].'-'.$_POST['fecha_mes'].'-'.$_POST['fecha_dia'];
+	//$fecha = date("Y-m-d", strtotime($fecha) );
 	$empleado->fechaNacimiento = $fecha;
 	$empleado->idPuestoTrabajo = $_POST['puesto_empleado'];
 	DAOFactory::getTblEmpleadoDAO()->insert($empleado);
