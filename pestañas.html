@@ -1,0 +1,63 @@
+<html>
+<head>
+<link rel="stylesheet" href="csspestania.css">
+</head>
+<body>
+ <!--Contenedor-->
+ <div id="container">
+  <h2>Agregar Empleado</h2>
+  <!--Pestaña 1 activa por defecto-->
+  <input id="tab-1" type="radio" name="tab-group" checked="checked" />
+  <label for="tab-1">Datos Generales</label>
+  <!--Pestaña 2 inactiva por defecto-->
+  <input id="tab-2" type="radio" name="tab-group" />
+  <label for="tab-2">Pestaña 2</label>
+  <!--Pestaña 3 inactiva por defecto-->
+  <input id="tab-3" type="radio" name="tab-group" />
+  <label for="tab-3">Pestaña 3</label>
+  <!--Contenido a mostrar/ocultar-->
+  <div id="content">
+   <!--Contenido de la Pestaña 1-->
+   <div id="content-1">
+
+   		<form method="post" action="../controlador/agregarEmpleado.php" class="formularios">
+<ul>
+<li><label for="nombre_empleado" class="labelNormal">Nombres:</label><input type="text" style="text-transform: uppercase" name="nombre_empleado"></li>
+<li><label for="apellido_empleado" class="labelNormal">Apellidos:</label><input type="text" style="text-transform: uppercase" name="apellido_empleado"></li>
+<li><label for="sexo_empleado" class="labelNormal">Sexo:</label><input type="radio" name="sexo_empleado" value="Masculino">M
+               <input type="radio" name="sexo_empleado" value="Femenino" checked>F</li>
+<li><label for="dui_empleado" class="labelNormal">DUI:</label><input type="text" name="dui_empleado"></li>
+<li><label for="nit_empleado" class="labelNormal">NIT:</label><input type="text" name="nit_empleado"></li>
+<li><label for="isss_empleado" class="labelNormal">ISSS:</label><input type="text" name="isss_empleado"></li>
+<li><label for="afp_empleado" class="labelNormal">AFP:</label><input type="text" name="afp_empleado"></li>
+<li><label for="cuenta_empleado" class="labelNormal">Numero de Cuenta:</label><input type="text" name="numerocuenta_empleado"></li>
+<li><label for="departamento_empleado" class="labelNormal">Departamento:</label></li>
+</ul>
+</form>
+</div>
+   
+
+   <!--Contenido de la Pestaña 2--> 
+   <div id="content-2">
+   
+   </div>
+   <!--Contenido de la Pestaña 3-->
+   <div id="content-3">
+   <form class="contact_form" action="" method="post" name="contact_form">
+		<ul>
+    <li>
+         <h2>Contact Us</h2>
+         <span class="required_notification">* Denotes Required Field</span>
+    </li>
+    <li>
+        <label for="name">Name:</label>
+        <input type="text" name="name" />
+    </li>
+	</ul>
+	</form>
+   </div>
+   <button class="submit" type="submit" value="enviar">Guardar</button></li>
+  </div>
+ </div>
+</body>
+</html>
