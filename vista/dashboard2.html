@@ -1,0 +1,113 @@
+<html>
+<body>
+	<style>
+	ul{ 
+		list-style-image: url(icon.gif); 
+		padding-right: 20px;
+        }
+
+    #modificados{
+    		list-style-image: url(modificado.png); 
+    }
+
+    #editar{
+    		list-style-image: url(editar.png); 
+    }
+
+    #agregados{
+    		list-style-image: url(agregar.png); 
+    }
+
+    li{
+    	padding-top: 10px; 
+		padding-left: 10px;
+		padding-right: 10px;
+    }
+    
+    div {
+        float: left;
+        width: 300px;
+        height: 200px;
+        margin: 8px; 
+        border-color: white;
+        border-width: 1px;
+		border-style: solid;
+    }
+  
+
+    #principal {
+  	  text-align: center;
+	 line-height: 30px;
+	}
+
+	h3.etiquetas{
+		border-width: 1px;
+		border-style: solid;
+		border-color: white;
+		border-radius: 5px;
+		padding-left: 15px;
+		background-color: 94D08C;
+	}
+
+	#container{
+		padding-top: 10px; 
+		padding-left: 10px;
+	}
+
+	div.internos{
+		padding-top: 10px; 
+		padding-left: 15px;
+		padding-right: 10px;
+
+
+	}
+
+</style>
+<div id="container" style="width: 1100px ; height:700px; background-color: F7F0F0" >
+  <h1 id="principal">Sistema de Gestion de Recursos Humanos</h1>
+  <div id="first" class="internos" style="float: left; width: 500px ; height:525px; background-color: ffffff">
+  	<h3 class="etiquetas">Informacion Reciente de Empleados</h3>
+  	<br>
+  	<p> Empleados Agregados Recientemente</p>
+  		<ul id="agregados">
+        <li><a href="#">Empleado x</a></li>
+        <li><a href="#">Empleado Y</a></li>
+        <li><a href="#">Empleado z</a></li>
+        <li><a href="#">Empleado W</a></li>
+    </ul>
+    <br>
+    <p> Empleados Modificados Recientemente</p>
+    <ul id="modificados">
+        <li><a href="#">Empleado x</a></li>
+        <li><a href="#">Empleado Y</a></li>
+        <li><a href="#">Empleado z</a></li>
+        <li><a href="#">Empleado W</a></li>
+    </ul>
+  </div>
+  
+  <div id="second" class="internos" style="float: left; width: 500px ; height:300px; background-color: ffffff">
+  	<h3 class="etiquetas">Recordatorios</h3>
+  	<p>Permiso pendiente por Aprobar</p>
+  	<ul id="editar">
+        <li><a href="#">Nombre de un Empleado</a></li>
+    </ul>
+  	<br>
+  	<p>Capacitacion pendiente por Aprobar<p>	  
+  		<ul id="editar">
+        <li><a href="#">Nombre de un Empleado</a></li>
+    </ul>
+  </div>
+  
+  <div id="third" class="internos" style="float: left; width: 500px ; height:200px; background-color: ffffff">
+  	<h3 class="etiquetas">Acciones</h3>
+    <ul>
+        <li><a href="#">Agregar Empleado</a></li>
+        <li><a href="#">Listar Empleados</a></li>
+        <li><a href="#">Agregar Departamento</a></li>
+        <li><a href="#">Agregar puestos</a></li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
