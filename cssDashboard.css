@@ -186,7 +186,15 @@ top: 25px;
 left: 116px;
 }
 
-#content-1 input, #content2 input, #content3 input, #content4 input, #content5 input {
+#content6 button {
+position:relative;
+margin:auto;
+top: 12px; 
+left: 170px;
+}
+
+
+#content-1 input, #content2 input, #content3 input, #content4 input, #content5 input, #content6 input {
  visibility: visible;
 }
 
@@ -322,10 +330,11 @@ font: normal 12px/150% Arial, Helvetica, sans-serif;
 
 }
 
-#content2, #content3, #content4, #content5  { /*      div de la segunda ventana modal        */
+#content2, #content3, #content4, #content5, #content6  { /*      div de la segunda ventana modal        */
  margin: 0 auto;
  padding-left: 25px;
  padding-right: 25px;
+ padding-bottom: 25px;
  background: #f1f1f1; /* Fondo del contenido */
  border-radius: .25em .25em .25em .25em;
  min-height: 20em; /* Alto del contenido */
@@ -339,7 +348,7 @@ font: normal 12px/150% Arial, Helvetica, sans-serif;
     border-bottom-width: 1px;
 }
 
- #content3  {
+ #content3, #content4  {
 
  width: 30%;
 
@@ -360,7 +369,7 @@ font: normal 12px/150% Arial, Helvetica, sans-serif;
     position:relative;
 }
 
-#content .labelNormal, #content2 .labelNormal, #content3 .labelNormal, #content4 .labelNormal, #content5 .labelNormal {
+#content .labelNormal, #content2 .labelNormal, #content3 .labelNormal, #content4 .labelNormal, #content5 .labelNormal, #content6 .labelNormal  {
 background: #f1f1f1;
 color: #555555;
 display: inline-block;
@@ -413,11 +422,11 @@ button.submit {
     text-shadow: 0 -1px 0 #396715;
 }
 
-#ventanaPermiso, #ventanaDescuento, #ventanaBono, #ventanaSancion {
+#ventanaPermiso .tables, #ventanaDescuento .tables, #ventanaBono .tables, #ventanaSancion .tables, #ventanaPermiso .tables{
 text-align: left;
 }
 
-#ventanaPermiso, #ventanaDescuento td{
+#ventanaPermiso td, #ventanaDescuento td, #ventanaCapacitacion td, #ventanaBono td, #ventanaSancion td {
 padding: 10px;
 width: 0%;
 }
