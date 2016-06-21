@@ -140,7 +140,7 @@
                 $meses = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
                 for ($j=0; $j < 12; $j++) {
                   echo '<option value="'.($j+1).'">'.$meses[$j].'</option>';
-                } 
+                } page
               ?>
               </select>
               <select name="anio"><?php for ($k=date("Y"); $k > 1900; $k--) { echo '<option value="'.$k.'">'.$k.'</option>';} ?></select></li>
@@ -186,7 +186,7 @@
 </tr>
 <tr>
 <td><label class="labelNormal">Puesto Trabajo:</label></td>
-<td><div id="txtHint"></div></td>
+<td><select name="puesto_empleado" id="txtHint"></select></td>
 </tr>
 </table>
 
