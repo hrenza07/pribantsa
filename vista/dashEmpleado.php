@@ -188,12 +188,13 @@
 <td><label class="labelNormal">Puesto Trabajo:</label></td>
 <td><select name="puesto_empleado" id="txtHint"></select></td>
 </tr>
-</table>
 
+</table>
     </form>
    </div>
-   <button class="submit" type="submit" value="enviar">Guardar</button></li>
+   
   </div>
+  <button class="submit" type="submit" value="enviar">Guardar</button>
  </div>
 
 </div>
