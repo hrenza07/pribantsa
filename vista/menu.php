@@ -3,7 +3,7 @@
    <meta charset='utf-8'>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-   <link rel="stylesheet" href="estilo.css">
+   <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 
@@ -14,13 +14,13 @@
 	
 	<div id='cssmenu'>
 		<ul>
-			<li class='has-sub'><a href='#'><span>Empleados</span></a>
+			<li class='has-sub'><a href='dashEmpleado.php'><span>Empleados</span></a>
 				<ul>
-					<li><a href='form_listaEmpleado.php'><span>Lista de Empleados</span></a></li>
+					<!--<li><a href='form_listaEmpleado.php'><span>Lista de Empleados</span></a></li>
 					<li><a href='form_agregarEmpleado.php'><span>Agregar Empleados</span></a></li>
 					<li><a href='form_agregarCapacitacion.php'><span>Agregar Capacitacion</span></a></li>
 					<li><a href='form_agregarReconocimiento.php'><span>Agregar Reconocimiento</span></a></li>
-					<li><a href='form_agregarEducacion.php'><span>Agregar Educacion</span></a></li>
+					<li><a href='form_agregarEducacion.php'><span>Agregar Educacion</span></a></li>-->
 				</ul>
 		    </li>
 			<li class='has-sub'><a href='#'><span>Accion Personal</span></a>

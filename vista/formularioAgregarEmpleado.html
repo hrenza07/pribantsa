@@ -1,0 +1,86 @@
+<html>
+<head>
+<link rel="stylesheet" href="csspestania2.css">
+</head>
+<body>
+ <!--Título-->
+ <h1>Agregar Nuevo Empleado</h1>
+ <!--Contenedor-->
+ <div id="container">
+  <!--Pestaña 1 activa por defecto-->
+  <input id="tab-1" type="radio" name="tab-group" checked="checked" />
+  <label for="tab-1">Datos Generales</label>
+  <!--Pestaña 2 inactiva por defecto-->
+  <input id="tab-2" type="radio" name="tab-group" />
+  <label for="tab-2">Estudios</label>
+  <!--Pestaña 3 inactiva por defecto-->
+  <input id="tab-3" type="radio" name="tab-group" />
+  <label for="tab-3">Experiencia Laboral</label>
+  <!--Pestaña 4 inactiva por defecto-->
+  <input id="tab-4" type="radio" name="tab-group" />
+  <label for="tab-4">Puestro de Trabajo</label>
+  <!--Contenido a mostrar/ocultar-->
+  <div id="content">
+  
+   <!--Contenido de la Pestaña 1-->
+   
+   <div id="content-1">
+<form method="post" action="../controlador/agregarEmpleado.php" class="contact_form">
+  <ul>
+    <li>
+         <label for="nombres" class ="labelNormal">Nombres:</label>
+         <input type="text" name="nombres" />
+    </li>
+    <li>
+        <label for="apellidos" class ="labelNormal">Apellidos:</label>
+        <input type="text" name="apellidos"/>
+    </li>
+    <li>
+        <label for="DUI" class ="labelNormal">DUI:</label>
+        <input type="text" name="DUI" />
+    </li>
+    <li>
+        <label for="nit" class ="labelNormal">NIT:</label>
+        <input type="text" name="nit" />
+    </li>
+    <li>
+        <label for="isss" class ="labelNormal">ISS:</label>
+        <input type="text" name="isss" />
+    </li>
+    <li>
+        <label for="afp" class ="labelNormal">AFP:</label>
+        <input type="text" name="afp" />
+    </li>
+    <li>
+        <label for="numeroCuenta" class ="labelNormal">Cuenta:</label>
+        <input type="text" name="numeroCuenta" />
+    </li>
+    <li>
+        <label for="fechanacimiento" class ="labelNormal">Fecha Nacimiento:</label>
+        <input id="datepicker" type="text" name="fechanacimiento" />
+    </li>
+</ul>
+</form>
+   </div>
+  
+
+   <!--Contenido de la Pestaña 2-->
+   <div id="content-2">
+    
+   </div>
+  
+
+
+   <!--Contenido de la Pestaña 3-->
+   <div id="content-3">
+  
+   </div>
+
+   <!--Contenido de la Pestaña 4-->
+   <div id="content-4">
+  
+   </div>
+  </div>
+ </div>
+</body>
+</html>
