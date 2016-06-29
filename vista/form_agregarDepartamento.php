@@ -17,7 +17,7 @@
     </li>
     <li>
         <label for="descripcion_departamento" class ="labelNormal">Descripcion:</label>
-        <textarea name="descripcion_departamento" cols="40" rows="6"></textarea>
+        <textarea name="descripcion_departamento" cols="20" rows="2"></textarea>
     </li>
     <li>
     <button class="submit" type="submit" value="enviar">Guardar</button>
